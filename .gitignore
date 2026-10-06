@@ -1,0 +1,6 @@
+node_modules
+.env
+.DS_Store
+# Downloaded sounds aren't ours to redistribute. Delete this line if you decide to commit them anyway.
+docs/sounds/*.mp3
+build/

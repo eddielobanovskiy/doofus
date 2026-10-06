@@ -1,0 +1,55 @@
+{
+  "name": "doofus",
+  "version": "0.1.0",
+  "description": "DOOFUS: download a friend for your AI. A free personality file (SOUL.md) for ChatGPT, Claude, Gemini, OpenClaw and Hermes, plus optional powers: roasts, Giphy GIFs, top Imgflip memes and trending meme sounds.",
+  "bin": {
+    "doofus": "src/cli.js"
+  },
+  "main": "src/core.js",
+  "files": [
+    "DOOFUS.md",
+    "DOOFUS-lite.md",
+    "IDENTITY.md",
+    "src",
+    "adapters",
+    "skill",
+    "integrations",
+    "data",
+    "scripts"
+  ],
+  "scripts": {
+    "test": "node test/smoke.js",
+    "mcp": "node src/cli.js mcp",
+    "telegram": "node src/cli.js telegram",
+    "slack": "node src/cli.js slack",
+    "discord": "node src/cli.js discord",
+    "assets": "node scripts/fetch-assets.js",
+    "sounds": "node scripts/fetch-assets.js",
+    "build": "python3 scripts/build-page.py"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "brainrot",
+    "chatgpt",
+    "claude",
+    "discord-bot",
+    "gif",
+    "hermes",
+    "mcp",
+    "meme",
+    "openclaw",
+    "persona",
+    "personality",
+    "roast",
+    "skill",
+    "slack-bot",
+    "soul",
+    "soul-md",
+    "soundboard",
+    "system-prompt",
+    "telegram-bot"
+  ],
+  "license": "MIT"
+}

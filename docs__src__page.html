@@ -1,0 +1,582 @@
+<title>DOOFUS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Comic+Neue:wght@400;700&family=Press+Start+2P&family=Rubik+Wet+Paint&display=swap">
+<style>
+/* Layout: one dumb column of crooked boxes on a seizure checkerboard. Ugly on the outside, dead simple on the inside: what he is → what he does → how to get him → play with him. Deliberately single-theme. */
+:root {
+  --pink: #ff2bd6; --lime: #b6ff00; --blue: #1736ff; --yellow: #fff200; --orange: #ff6a00;
+  --cyan: #39e6ff; --purple: #b98cff; --ink: #0d0a12; --paper: #ffffff; --red: #ff1e1e; --green: #7ee05a;
+  --display: "Bangers", "Impact", "Arial Black", sans-serif;
+  --drip: "Rubik Wet Paint", "Bangers", "Impact", sans-serif;
+  --meme: "Anton", "Impact", "Arial Black", sans-serif;
+  --body: "Comic Neue", "Comic Sans MS", "Chalkboard SE", cursive, sans-serif;
+  --pixel: "Press Start 2P", "Courier New", monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  font-family: var(--body); font-size: 18px; line-height: 1.45; color: var(--ink);
+  background-color: var(--yellow);
+  background-image: repeating-conic-gradient(var(--pink) 0 25%, var(--yellow) 0 50%);
+  background-size: 60px 60px; overflow-x: hidden;
+}
+a { color: var(--blue); font-weight: 700; }
+button { font: inherit; cursor: pointer; color: var(--ink); }
+:focus-visible { outline: 4px dashed var(--blue); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.wrap { max-width: 960px; margin: 0 auto; padding-inline: 16px; padding-block: 0 90px; overflow-x: clip; }
+
+/* marquee */
+.marquee { background: var(--ink); color: var(--lime); font-family: var(--pixel); font-size: 12px; overflow: hidden; white-space: nowrap; border-block: 4px solid var(--orange); }
+.marquee span { display: inline-block; padding: 9px 0 9px 100%; animation: scroll 24s linear infinite; }
+.marquee.rev { background: var(--blue); color: var(--yellow); }
+@keyframes scroll { to { transform: translateX(-100%); } }
+
+/* WordArt headings */
+.wordart { font-family: var(--display); letter-spacing: 1px; line-height: .95; margin: 0;
+  background: linear-gradient(90deg, #ff1e1e, #ff6a00, #fff200, #3cff00, #00e1ff, #1736ff, #b100ff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-stroke: 2px var(--ink); filter: drop-shadow(4px 4px 0 var(--ink)); text-wrap: balance; }
+
+/* header */
+header.top { position: relative; margin-top: 18px; background: var(--paper); border: 6px ridge var(--orange); padding: 16px 16px 22px; box-shadow: 10px 10px 0 var(--ink); text-align: center; }
+.logo-btn { background: none; border: 0; padding: 0; width: 100%; max-width: 720px; display: block; margin: 0 auto; }
+.logo-btn svg { width: 100%; height: auto; display: block; animation: bob 2.2s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-6px) rotate(-1.5deg); } }
+.what-is { font-size: clamp(34px, 6.4vw, 64px); margin-top: 6px; }
+.what-is-sub { font-weight: 700; font-size: clamp(18px, 2.5vw, 23px); max-width: 40ch; margin: 12px auto 0; text-wrap: balance; }
+.what-is-sub mark { background: var(--lime); padding: 0 4px; }
+.burst { position: absolute; right: -12px; top: -24px; width: 124px; height: 124px; display: grid; place-items: center; text-align: center; font-family: var(--display); font-size: 19px; line-height: 1; background: var(--yellow); clip-path: polygon(50% 0,61% 18%,82% 7%,79% 30%,100% 32%,86% 50%,100% 68%,79% 70%,82% 93%,61% 82%,50% 100%,39% 82%,18% 93%,21% 70%,0 68%,14% 50%,0 32%,21% 30%,18% 7%,39% 18%); animation: spin 6s linear infinite; z-index: 4; }
+.burst b { display: block; font-size: 30px; color: var(--red); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.side-gif { position: absolute; top: 120px; width: 90px; z-index: 3; }
+.side-gif.l { left: -20px; transform: rotate(-10deg); } .side-gif.r { right: -20px; transform: rotate(10deg) scaleX(-1); }
+.side-gif img { width: 100%; display: block; }
+
+/* buttons */
+.cta { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 16px; }
+.btn { display: inline-block; text-align: center; text-decoration: none; font-family: var(--display); font-size: clamp(26px, 4.2vw, 38px); line-height: 1; padding: 12px 22px 10px; border: 5px outset; color: var(--ink) !important; }
+.btn small { display: block; font-family: var(--body); font-size: 15px; font-weight: 700; margin-top: 4px; }
+.btn.go { background: var(--lime); border-color: #d9ff80; transform: rotate(-2deg); animation: pulse 1.1s ease-in-out infinite; }
+.btn.alt { background: var(--cyan); border-color: #a5f4ff; transform: rotate(2deg); }
+.btn.hot { background: var(--orange); border-color: #ffb37a; }
+.btn:active { border-style: inset; }
+.btn:hover { background: var(--pink); color: var(--paper) !important; }
+@keyframes pulse { 50% { transform: rotate(-2deg) scale(1.06); } }
+.freebar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+.freebar span { font-family: var(--display); font-size: clamp(18px, 2.6vw, 24px); padding: 3px 12px; border: 4px solid var(--ink); background: var(--paper); }
+.freebar span:nth-child(odd) { background: var(--lime); transform: rotate(-3deg); } .freebar span:nth-child(3) { background: var(--yellow); } .freebar span:nth-child(4) { background: var(--cyan); transform: rotate(3deg); }
+
+/* nav */
+nav.shame { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 4px; justify-content: center; }
+nav.shame a { font-family: var(--display); font-size: 22px; text-decoration: none; color: var(--ink); background: var(--lime); border: 3px outset #d9ff80; padding: 4px 14px; }
+nav.shame a:nth-child(2n) { background: var(--orange); border-color: #ffb37a; transform: rotate(2deg); }
+nav.shame a:nth-child(3n) { background: var(--pink); border-color: #ff9cec; transform: rotate(-2deg); color: var(--paper); }
+nav.shame a:hover { background: var(--yellow); color: var(--ink); }
+
+/* boxes */
+.box { position: relative; margin-top: 40px; background: var(--paper); border: 5px solid var(--ink); padding: 22px 18px 24px; box-shadow: 8px 8px 0 var(--blue); }
+.box:nth-of-type(odd) { transform: rotate(-.7deg); } .box:nth-of-type(even) { transform: rotate(.6deg); box-shadow: 8px 8px 0 var(--pink); }
+.box h2 { font-size: clamp(36px, 6.4vw, 58px); }
+.box .sub { font-weight: 700; margin: 8px 0 0; max-width: 60ch; }
+.sticker { position: absolute; font-family: var(--display); font-size: 19px; padding: 4px 10px; background: var(--red); color: var(--paper); border: 3px solid var(--ink); transform: rotate(8deg); right: 10px; top: -22px; animation: blink 1s steps(2) infinite; cursor: pointer; z-index: 3; }
+@keyframes blink { 50% { background: var(--ink); color: var(--yellow); } }
+.corner-gif { position: absolute; right: -18px; top: -54px; width: 120px; transform: rotate(7deg); z-index: 2; border: 4px solid var(--ink); background: var(--paper); padding: 4px; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; }
+.corner-gif img { width: 100%; display: block; }
+.box.has-corner h2 { padding-right: 120px; }
+
+/* GIF cutouts */
+.gif { margin: 0; display: inline-grid; background: var(--paper); border: 4px solid var(--ink); padding: 5px 5px 3px; box-shadow: 5px 5px 0 var(--ink); transform: rotate(var(--r, -3deg)); vertical-align: top; max-width: 100%; }
+.gif img { display: block; height: 150px; width: auto; max-width: 100%; object-fit: cover; }
+.gif figcaption { font-family: var(--display); font-size: 18px; text-align: center; line-height: 1.05; padding-top: 4px; max-width: 240px; }
+.via { font-family: var(--pixel); font-size: 7px; color: #777; text-align: center; display: block; }
+
+/* what he does */
+.does { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+.does button { min-width: 0; border: 5px outset; padding: 10px 10px 12px; display: grid; gap: 6px; align-content: start; text-align: center; background: var(--c); border-color: var(--c); }
+.does button:hover { transform: rotate(-2deg) scale(1.03); }
+.does img { width: 100%; height: 140px; object-fit: cover; border: 3px solid var(--ink); display: block; }
+.does h3 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 32px; line-height: 1; }
+.does p { margin: 0; font-weight: 700; font-size: 16px; }
+.does .tap { font-family: var(--pixel); font-size: 8px; }
+
+/* steps */
+.steps { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 22px; }
+.steps > li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; align-items: start; }
+.num { width: 70px; height: 70px; display: grid; place-items: center; font-family: var(--display); font-size: 44px; color: var(--paper); border: 4px solid var(--ink); border-radius: 50%; text-shadow: 2px 2px 0 var(--ink); cursor: pointer; background: var(--red); transform: rotate(-8deg); }
+.steps > li:nth-child(2) .num { background: var(--blue); transform: rotate(7deg); } .steps > li:nth-child(3) .num { background: #1a9b2a; }
+.steps h3 { margin: 8px 0 8px; font-family: var(--display); font-weight: 400; font-size: clamp(28px, 4.4vw, 38px); line-height: 1; }
+.steps p { margin: 0 0 10px; font-weight: 700; max-width: 62ch; }
+.soul-pre { max-height: 220px; overflow: auto; margin: 10px 0 0; padding: 12px; background: #fffde0; border: 4px double var(--ink); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.app { border: 4px solid var(--ink); padding: 10px; background: var(--c); min-width: 0; }
+.app b { display: block; font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1; margin-bottom: 4px; }
+.app span { font-weight: 700; font-size: 15px; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85em; background: var(--ink); color: var(--lime); padding: 1px 5px; overflow-wrap: anywhere; }
+.say { display: flex; flex-wrap: wrap; gap: 8px; }
+.say span { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; background: #9fd4ff; border: 3px solid var(--ink); padding: 6px 10px; border-radius: 14px 14px 2px 14px; }
+
+/* roast */
+.roast-in { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.roast-in input { flex: 1 1 260px; min-width: 0; font-family: var(--body); font-weight: 700; font-size: 20px; padding: 12px; border: 4px inset #c9c9c9; background: #fffde0; }
+.big-red { font-family: var(--display); font-size: 30px; padding: 8px 22px; color: var(--paper); background: linear-gradient(#ff5a5a, #c40000); border: 4px outset #ff8a8a; text-shadow: 2px 2px 0 var(--ink); }
+.big-red:active { border-style: inset; }
+.spice { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; font-weight: 700; }
+.spice button { font-family: var(--display); font-size: 20px; padding: 4px 12px; border: 3px solid var(--ink); background: var(--paper); }
+.spice button[aria-pressed=true] { background: var(--red); color: var(--paper); }
+.examples { font-size: 15px; margin: 10px 0 0; }
+.examples button { background: none; border: 0; padding: 0; text-decoration: underline wavy var(--pink); color: var(--blue); font-weight: 700; }
+.roast-out { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+.bubble { background: var(--ink); color: var(--paper); border: 4px dashed var(--lime); padding: 14px 16px 36px; font-size: 21px; font-weight: 700; position: relative; min-width: 0; }
+.bubble .who { display: block; font-family: var(--pixel); font-size: 10px; color: var(--lime); margin-bottom: 8px; }
+.stamp { position: absolute; right: 12px; bottom: -18px; font-family: var(--display); font-size: 24px; color: var(--red); border: 4px solid var(--red); padding: 0 10px; background: var(--paper); transform: rotate(-9deg); }
+.roast-gif img { height: 170px; }
+
+/* soundboard */
+.board { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin-top: 16px; }
+.snd { position: relative; font-family: var(--display); font-size: 21px; line-height: 1; padding: 18px 8px; border: 5px outset; overflow-wrap: anywhere; background: var(--c); border-color: var(--c); }
+.snd:active, .snd.on { border-style: inset; transform: scale(.94) rotate(-3deg); }
+.snd.big { grid-column: span 2; font-size: 46px; background: var(--red); border-color: #ff8a8a; color: var(--paper); text-shadow: 3px 3px 0 var(--ink); }
+.snd .rank { position: absolute; top: -10px; left: -8px; font-family: var(--pixel); font-size: 9px; background: var(--ink); color: var(--yellow); padding: 4px 5px; transform: rotate(-8deg); }
+.more { margin-top: 14px; font-family: var(--display); font-size: 24px; padding: 6px 16px; background: var(--ink); color: var(--yellow); border: 4px outset #555; }
+
+/* memes */
+.meme-wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px; margin-top: 14px; align-items: start; }
+.memebox { position: relative; border: 5px solid var(--ink); background: var(--ink); }
+.memebox img { display: block; width: 100%; }
+.cap { position: absolute; left: 0; right: 0; padding: 8px 10px; text-align: center; font-family: var(--meme); text-transform: uppercase; font-size: clamp(20px, 4.2vw, 38px); line-height: 1.05; color: #fff; overflow-wrap: anywhere; pointer-events: none;
+  text-shadow: 3px 3px 0 #000, -3px 3px 0 #000, 3px -3px 0 #000, -3px -3px 0 #000, 0 3px 0 #000, 3px 0 0 #000, 0 -3px 0 #000, -3px 0 0 #000; }
+.cap.top { top: 0; } .cap.bot { bottom: 0; }
+.memebox.drake .cap { left: 50%; height: 50%; display: flex; align-items: center; justify-content: center; color: #000; text-shadow: none; font-size: clamp(16px, 3vw, 28px); }
+.meme-ctrl label { display: block; font-weight: 700; margin-top: 10px; }
+.meme-ctrl input { width: 100%; font-family: var(--meme); font-size: 18px; text-transform: uppercase; padding: 8px; border: 3px solid var(--ink); }
+.tpls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.tpls button { padding: 0; border: 3px solid var(--ink); background: var(--ink); }
+.tpls img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.tpls button[aria-pressed=true] { outline: 5px solid var(--red); outline-offset: -3px; transform: rotate(-3deg) scale(1.06); }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.small-btn { font-family: var(--display); font-size: 20px; padding: 6px 14px; background: var(--blue); color: var(--paper); border: 4px outset #6f86ff; }
+
+/* myspace */
+.ms { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 14px; margin-top: 14px; font-family: Verdana, Tahoma, Arial, sans-serif; font-size: 14px; }
+.ms-card { border: 2px solid #6699cc; background: #fff; }
+.ms-card h3 { margin: 0; background: #6699cc; color: #fff; font-size: 14px; padding: 4px 8px; }
+.ms-card .in { padding: 8px 10px; }
+.ms-card p { margin: 0 0 8px; }
+.ms-pic { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 10px; }
+.ms-pic svg { width: 110px; background: var(--pink); border: 3px solid #000; }
+.ms dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; } .ms dt { color: #336699; font-weight: 700; } .ms dd { margin: 0; }
+.online { color: #1a9b2a; font-weight: 700; } .online::before { content: "● "; animation: blink 1s steps(2) infinite; }
+.orange { color: #ff6600; font-weight: 700; }
+.top8 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.top8 button { border: 2px solid #000; background: var(--c); padding: 8px 3px; font-family: var(--display); font-size: 15px; line-height: 1; min-height: 58px; overflow-wrap: anywhere; }
+.song { display: flex; gap: 8px; align-items: center; background: #000; color: #fff; padding: 6px 8px; font-family: var(--pixel); font-size: 9px; border: 0; width: 100%; text-align: left; }
+.song i { flex: 1; height: 14px; background: repeating-linear-gradient(90deg, var(--lime) 0 3px, transparent 3px 6px); }
+
+/* powers + faq */
+details { border: 4px solid var(--ink); background: var(--paper); margin-top: 10px; }
+details summary { font-family: var(--display); font-size: 24px; padding: 8px 12px; cursor: pointer; background: var(--cyan); }
+details[open] summary { background: var(--pink); color: var(--paper); }
+details > div, details > p { padding: 10px 14px 14px; margin: 0; max-width: 68ch; font-weight: 700; }
+pre.code { margin: 6px 0 12px; padding: 12px; background: var(--ink); color: var(--lime); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* share */
+.share { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; align-items: center; }
+
+/* footer bits */
+.counter { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; margin-top: 36px; font-weight: 700; text-align: center; }
+.digits { font-family: var(--pixel); font-size: 18px; background: var(--ink); color: #ff3b3b; padding: 8px 10px; letter-spacing: 4px; border: 3px inset #777; font-variant-numeric: tabular-nums; }
+.construction { margin-top: 24px; padding: 12px; text-align: center; font-family: var(--display); font-size: 26px; background: repeating-linear-gradient(45deg, var(--yellow) 0 22px, var(--ink) 22px 44px); display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.construction span { background: var(--yellow); padding: 2px 12px; border: 3px solid var(--ink); }
+.construction img { height: 60px; }
+footer { margin-top: 22px; background: var(--paper); border: 4px groove var(--ink); padding: 16px; text-align: center; font-size: 15px; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px; }
+.badges button { font-family: var(--pixel); font-size: 8px; padding: 6px 8px; border: 2px solid var(--ink); background: var(--c, #ececec); }
+
+/* floating stuff */
+.soundtoggle { position: fixed; left: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 55; font-family: var(--display); font-size: 20px; padding: 6px 12px; background: var(--lime); border: 4px outset #d9ff80; }
+.soundtoggle[aria-pressed=false] { background: #ccc; border-color: #eee; }
+.clippy { position: fixed; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); width: min(290px, calc(100vw - 28px)); background: var(--paper); border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--pink); z-index: 50; font-size: 15px; }
+.bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(90deg, #000080, #1084d0); color: var(--paper); font-weight: 700; padding: 4px 6px; font-size: 13px; }
+.bar button { background: #c0c0c0; border: 2px outset #fff; width: 22px; height: 20px; padding: 0; font-weight: 700; line-height: 1; }
+.clippy-body { display: grid; grid-template-columns: 54px 1fr; gap: 10px; padding: 10px; }
+.clippy-body svg { width: 54px; }
+.clippy-body p { margin: 0 0 8px; font-weight: 700; }
+.clippy-acts { display: flex; flex-wrap: wrap; gap: 6px; }
+.clippy-acts button { font-size: 13px; padding: 4px 8px; background: #c0c0c0; border: 2px outset #fff; font-weight: 700; }
+.boom { position: fixed; inset: 0; display: grid; place-items: center; z-index: 80; pointer-events: none; }
+.boom img { width: min(80vw, 520px); }
+.toast { position: fixed; left: 50%; top: calc(18px + env(safe-area-inset-top, 0px)); transform: translateX(-50%) rotate(-3deg); font-family: var(--display); font-size: 30px; background: var(--lime); border: 4px solid var(--ink); padding: 4px 16px; z-index: 90; box-shadow: 6px 6px 0 var(--ink); white-space: nowrap; }
+.spark { position: fixed; pointer-events: none; z-index: 70; font-size: 18px; animation: fall .9s ease-out forwards; }
+@keyframes fall { to { transform: translateY(40px) rotate(160deg); opacity: 0; } }
+body.shake .wrap { animation: shake .35s linear 2; }
+@keyframes shake { 25% { transform: translate(-7px, 3px) rotate(-.7deg); } 75% { transform: translate(7px, -3px) rotate(.7deg); } }
+
+@media (max-width: 720px) {
+  .side-gif { display: none; }
+  .box, .box:nth-of-type(odd), .box:nth-of-type(even) { transform: none; }
+  .corner-gif { width: 90px; right: -6px; top: -46px; }
+  .box.has-corner h2 { padding-right: 70px; }
+  .steps > li { grid-template-columns: 1fr; }
+  .num { width: 56px; height: 56px; font-size: 34px; }
+  .roast-out, .meme-wrap, .ms { grid-template-columns: 1fr; }
+  .snd.big { font-size: 36px; }
+  .burst { width: 96px; height: 96px; font-size: 15px; right: -4px; } .burst b { font-size: 22px; }
+  .clippy { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .marquee span { padding-left: 0; } }
+</style>
+
+<div class="marquee" aria-hidden="true"><span>★ DOWNLOAD A FRIEND ★ HIS NAME IS DOOFUS ★ HE IS VERY STUPID ★ AND VERY SMART ★ 100% FREE ★ 0% PROFESSIONAL ★ NOW WITH FAAAHHH ★ 67 67 67 ★ BEST VIEWED AT 800×600 ★</span></div>
+
+<div class="wrap" id="top">
+
+<header class="top">
+  <div class="burst" data-play="apple-pay" aria-hidden="true"><div>FREE!!<b>$0</b>forever</div></div>
+  <div class="side-gif l" aria-hidden="true"><img src="{{G:dancing_banana}}" alt=""></div>
+  <div class="side-gif r" aria-hidden="true"><img src="{{G:dancing_banana}}" alt=""></div>
+  <button class="logo-btn" id="logoBtn" aria-label="DOOFUS logo, click for FAAAHHH">{{LOGO}}</button>
+  <h1 class="wordart what-is">A STUPID FRIEND<br>FOR YOUR AI 🤪</h1>
+  <p class="what-is-sub">DOOFUS is <mark>one text file</mark>. Paste it into ChatGPT, Claude, Gemini or OpenClaw and your boring AI starts roasting you, making memes and screaming FAAAHHH. It still helps you with everything.</p>
+  <div class="cta">
+    <button class="btn go" type="button" id="copyTop" data-label="📋 COPY DOOFUS">📋 COPY DOOFUS<small>free, then paste it in your AI</small></button>
+    <a class="btn alt" href="#how" data-play="rizz">❓ HOW??<small>3 steps, 30 seconds</small></a>
+  </div>
+  <div class="freebar"><span>FREE</span><span>NO SIGNUP</span><span>NO APP</span><span>NO BRAIN CELLS</span></div>
+</header>
+
+<nav class="shame" aria-label="Sections">
+  <a href="#does" data-play="vine-boom">WHAT HE DOES</a>
+  <a href="#how" data-play="android-beep">GET HIM</a>
+  <a href="#roast" data-play="tactical-nuke">GET ROASTED</a>
+  <a href="#sounds" data-play="six-seven">SOUNDBOARD</a>
+  <a href="#memes" data-play="clash-royale">MEMES</a>
+  <a href="#meet" data-play="uwu">HIS MYSPACE</a>
+  <a href="#faq" data-play="lore">FAQ??</a>
+</nav>
+
+<section class="box" id="does">
+  <span class="sticker" data-play="we-do-not-care">CLICK THEM!!</span>
+  <h2 class="wordart">WHAT DOOFUS DOES</h2>
+  <p class="sub">Your AI, but it's your funniest friend. Click a box.</p>
+  <div class="does">
+    <button type="button" data-play="emotional" style="--c:#ffb3b3"><img src="{{G:roasted}}" alt=""><h3>🔥 ROASTS YOU</h3><p>Say "roast me". He goes for your choices, never who you are.</p><span class="tap">CLICK = EMOTIONAL DAMAGE</span></button>
+    <button type="button" data-play="vine-boom" style="--c:#b3ecff"><img src="{{G:cat}}" alt=""><h3>🎞️ SENDS GIFS</h3><p>A reaction GIF for every disaster in your life.</p><span class="tap">CLICK = VINE BOOM</span></button>
+    <button type="button" data-play="clash-royale" style="--c:#e9ffb3"><img src="{{G:math}}" alt=""><h3>🖼️ MAKES MEMES</h3><p>Drake, Two Buttons, Distracted Boyfriend. The classics.</p><span class="tap">CLICK = HEHEHAW</span></button>
+    <button type="button" data-play="fahh" style="--c:#ffd9f5"><img src="{{G:dog}}" alt=""><h3>🔊 PLAYS SOUNDS</h3><p>FAAAHHH, bruh, 67, tactical nuke. 39 of them.</p><span class="tap">CLICK = FAAAHHH</span></button>
+  </div>
+  <p class="sub" style="margin-top:14px">And when you need real help (code, emails, homework) he does that first. Jokes second. Say <code>doofus, serious mode</code> and he chills.</p>
+</section>
+
+<section class="box has-corner" id="how">
+  <div class="corner-gif" data-play="bugatti"><img src="{{G:money_rain}}" alt=""><span class="via">via GIPHY</span></div>
+  <span class="sticker" data-play="six-seven" style="right:140px">EASY!!</span>
+  <h2 class="wordart">GET DOOFUS IN 3 STEPS</h2>
+  <p class="sub">No install. No account. It's literally one text file.</p>
+  <ol class="steps">
+    <li><span class="num" data-play="bruh" aria-hidden="true">1</span><div>
+      <h3>COPY HIM</h3>
+      <div class="cta" style="justify-content:flex-start;margin-top:0">
+        <button class="btn go" type="button" id="copySoul" data-label="📋 COPY DOOFUS" style="animation:none">📋 COPY DOOFUS<small>the full guy (best)</small></button>
+        <button class="btn alt" type="button" id="copyLite" data-label="📋 COPY MINI DOOFUS">📋 COPY MINI DOOFUS<small>short, for small boxes</small></button>
+      </div>
+      <pre class="soul-pre" id="soulText" tabindex="0" aria-label="The DOOFUS personality file">{{SOUL}}</pre>
+      <pre id="liteText" hidden>{{LITE}}</pre>
+    </div></li>
+    <li><span class="num" data-play="android-beep" aria-hidden="true">2</span><div>
+      <h3>PASTE HIM IN YOUR AI</h3>
+      <div class="apps">
+        <div class="app" style="--c:#c8ffd4"><b>ChatGPT</b><span>Settings → Personalization → Custom instructions → paste <u>MINI DOOFUS</u>. Or make a GPT and paste the full one.</span></div>
+        <div class="app" style="--c:#ffe0c2"><b>Claude</b><span>New Project → Project instructions → paste DOOFUS.</span></div>
+        <div class="app" style="--c:#d6e4ff"><b>Gemini</b><span>Gems → New Gem → Instructions → paste DOOFUS.</span></div>
+        <div class="app" style="--c:#ffd1f1"><b>OpenClaw / Hermes</b><span>Save him as your soul: <code>~/.openclaw/workspace/SOUL.md</code> or <code>~/.hermes/SOUL.md</code></span></div>
+      </div>
+    </div></li>
+    <li><span class="num" data-play="john-cena" aria-hidden="true">3</span><div>
+      <h3>SAY HI</h3>
+      <div class="say"><span>yo doofus roast my spotify</span><span>doofus make a meme about mondays</span><span>doofus help me write this email</span></div>
+      <p style="margin-top:12px">That's it. Congrats, you have a friend now. 🎉</p>
+    </div></li>
+  </ol>
+  <details>
+    <summary>🤓 BONUS: give him REAL powers (for nerds)</summary>
+    <div>
+      <p>With powers, DOOFUS sends actual GIFs (Giphy), finished memes (Imgflip) and real sound clips in Telegram, Slack, Discord, Claude Desktop and OpenClaw. Free.</p>
+      <pre class="code">git clone https://github.com/eddielobanovskiy/doofus
+cd doofus
+npm run assets
+TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
+      <p>Setup for every app is in the <a href="https://github.com/eddielobanovskiy/doofus" target="_blank" rel="noopener" class="repo">README on GitHub</a>.</p>
+    </div>
+  </details>
+</section>
+
+<section class="box has-corner" id="roast">
+  <div class="corner-gif" data-play="goofy-laugh"><img src="{{G:laugh}}" alt=""><span class="via">via GIPHY</span></div>
+  <h2 class="wordart">GET ROASTED (FREE SAMPLE)</h2>
+  <p class="sub">Type something you did. DOOFUS says something mean about it.</p>
+  <form class="roast-in" id="roastForm">
+    <label for="roastIn" class="sr">Thing to roast</label>
+    <input type="text" id="roastIn" maxlength="80" value="my 47 open browser tabs" autocomplete="off">
+    <button class="big-red" type="submit">COOK ME 🔥</button>
+  </form>
+  <div class="spice" role="group" aria-label="Spice level">SPICE:
+    <button type="button" data-spice="1" aria-pressed="false">🌶 MILD</button>
+    <button type="button" data-spice="2" aria-pressed="true">🌶🌶 SPICY</button>
+    <button type="button" data-spice="3" aria-pressed="false">🌶🌶🌶 CALL 911</button>
+  </div>
+  <p class="examples">Or try: <button type="button" data-ex="my startup: uber for houseplants">uber for houseplants</button> · <button type="button" data-ex="my code has zero comments">my code has zero comments</button> · <button type="button" data-ex="pineapple on pizza">pineapple on pizza</button> · <button type="button" data-ex="replying to emails at 2am">replying to emails at 2am</button></p>
+  <div class="roast-out">
+    <div class="bubble" aria-live="polite"><span class="who">DOOFUS.EXE SAYS:</span><span id="roastText">"my 47 open browser tabs" is not a workflow, it's a hostage situation. 🔊 [FBI OPEN UP]</span><span class="stamp" id="stamp">COOKED</span></div>
+    <figure class="gif roast-gif" style="--r:3deg"><img id="roastGif" src="{{G:roasted}}" alt="reaction GIF"><figcaption id="roastCap">you, right now</figcaption><span class="via">via GIPHY</span></figure>
+  </div>
+</section>
+
+<section class="box has-corner" id="sounds">
+  <div class="corner-gif" data-play="default-dance"><img src="{{G:skeleton_dancing}}" alt=""><span class="via">via GIPHY</span></div>
+  <h2 class="wordart">DOOFUS'S SOUNDBOARD</h2>
+  <p class="sub">The 39 most trending meme sounds on the internet. Your AI can use these now. Your coworkers will love it.</p>
+  <div class="board" id="board"></div>
+  <div class="board" id="boardMore" hidden></div>
+  <button class="more" type="button" id="moreBtn" aria-expanded="false">SHOW ALL 39 ▼</button>
+</section>
+
+<section class="box has-corner" id="memes">
+  <div class="corner-gif" data-play="kahoot"><img src="{{G:spinning_cat}}" alt=""><span class="via">via GIPHY</span></div>
+  <h2 class="wordart">MEME MACHINE 3000</h2>
+  <p class="sub">The top memes of all time. Pick one, type, done. DOOFUS does this for you in chat.</p>
+  <div class="meme-wrap">
+    <div class="memebox" id="memebox"><img id="memeImg" alt="meme template"><div class="cap top" id="capTop"></div><div class="cap bot" id="capBot"></div></div>
+    <div class="meme-ctrl">
+      <div class="tpls" id="tpls" role="group" aria-label="Meme templates"></div>
+      <label for="t1">Top text</label><input id="t1" type="text" maxlength="70" value="reading the docs">
+      <label for="t2">Bottom text</label><input id="t2" type="text" maxlength="70" value="asking DOOFUS">
+      <div class="acts">
+        <button class="small-btn" type="button" id="randMeme">🎲 RANDOM</button>
+        <button class="small-btn" type="button" id="boomMeme" style="background:var(--red);border-color:#ff8a8a">💥 VINE BOOM IT</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="box has-corner" id="meet">
+  <div class="corner-gif" data-play="goofy-ahh"><img src="{{G:clown}}" alt=""><span class="via">via GIPHY</span></div>
+  <h2 class="wordart">MEET DOOFUS</h2>
+  <p class="sub">He made a MySpace. Nobody told him.</p>
+  <div class="ms">
+    <div style="display:grid;gap:10px;align-content:start">
+      <div class="ms-card"><div class="in">
+        <p style="font-size:22px;font-weight:700;margin-bottom:6px">DOOFUS 🤪</p>
+        <div class="ms-pic"><svg viewBox="0 30 240 240" aria-hidden="true"><use href="#dfface"/></svg>
+          <dl><dt>Mood:</dt><dd>unwell</dd><dt>Age:</dt><dd>yes</dd><dt>From:</dt><dd>the group chat</dd><dt>Teeth:</dt><dd>1</dd></dl></div>
+        <p class="online" style="margin-top:6px">Online Now!</p>
+      </div></div>
+      <div class="ms-card"><h3>Profile Song</h3><div class="in"><button class="song" type="button" data-play="fahh">▶ FAAAHHH (Extended Mix) <i></i></button></div></div>
+    </div>
+    <div style="display:grid;gap:10px;align-content:start;min-width:0">
+      <div class="ms-card"><h3>About me:</h3><div class="in">
+        <p>hi im doofus. i live in your AI now. i look dumb but i know everything, which is honestly worse for you.</p>
+        <p>i'll write your code, emails and excuses. i will also roast every one of your choices while doing it. that's the deal.</p>
+        <p class="orange">Things I will NOT do:</p>
+        <p>make fun of who you are (only what you did). be mean on your bad days. pretend a joke is an answer.</p>
+      </div></div>
+      <div class="ms-card"><h3>DOOFUS's Top 8</h3><div class="in"><div class="top8" id="top8"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="box has-corner" id="share">
+  <div class="corner-gif" data-play="bugatti"><img src="{{G:thumbs_up_kid}}" alt=""><span class="via">via GIPHY</span></div>
+  <h2 class="wordart">DOOFUS NEEDS FRIENDS</h2>
+  <p class="sub">He's free forever. The only payment he takes is you sending him to somebody.</p>
+  <div class="share">
+    <a class="btn alt" id="shareX" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener" data-play="rizz">POST ON X</a>
+    <a class="btn hot" id="shareReddit" href="https://www.reddit.com/submit" target="_blank" rel="noopener" data-play="lore">POST ON REDDIT</a>
+    <button class="btn go" type="button" id="copyLink" style="animation:none" data-label="📋 COPY LINK">📋 COPY LINK</button>
+  </div>
+</section>
+
+<section class="box has-corner" id="faq">
+  <div class="corner-gif" data-play="bruh"><img src="{{G:facepalm}}" alt=""><span class="via">via GIPHY</span></div>
+  <h2 class="wordart">QUESTIONS NOBODY ASKED</h2>
+  <details><summary>Is it really free?</summary><p>Yes. Forever. No signup, no premium, no catch. DOOFUS is a text file. The code is open source.</p></details>
+  <details><summary>What is a "personality file"?</summary><p>Instructions that tell an AI who to be. ChatGPT, Claude, Gemini and OpenClaw all have a box for them. DOOFUS is the one that makes your AI your funniest friend.</p></details>
+  <details><summary>Will he still actually help me?</summary><p>Yes. Rule #1 in his file: real answer first, jokes after. Say "doofus, serious mode" and the jokes stop.</p></details>
+  <details><summary>Will he roast me too hard?</summary><p>He roasts what you did, never who you are. If you're having a real bad day, he just turns into a nice friend.</p></details>
+  <details><summary>Why does this website look like this?</summary><p>Every AI website looks like a bank. This one looks like a bank got hit by a truck full of memes.</p></details>
+</section>
+
+<div class="counter"><span>You are visitor number</span><span class="digits" id="hits">0069420</span><span>(DOOFUS made this number up)</span></div>
+
+<div class="construction"><img src="{{G:under_construction}}" alt=""><span>THIS PAGE IS UNDER CONSTRUCTION FOREVER</span><img src="{{G:under_construction}}" alt=""></div>
+
+<footer>
+  <p><b>DOOFUS™</b> is free and open source. The ™ is fake.<br><a class="repo" href="https://github.com/eddielobanovskiy/doofus" target="_blank" rel="noopener">github.com/eddielobanovskiy/doofus</a></p>
+  <p>© 2026 DOOFUS. No rights reserved. Several wrongs reserved.<br>Sounds from soundbuttonsworld.com, GIFs via GIPHY, memes from Imgflip. Not affiliated with any of them, or with OpenAI, Anthropic, Google, OpenClaw, or reality.</p>
+  <div class="badges"><button type="button" data-play="bark-fart">BEST VIEWED IN NETSCAPE 4</button><button type="button" data-play="wet-fart" style="--c:var(--lime)">Y2K COMPLIANT</button><button type="button" data-play="helicopter" style="--c:var(--orange)">MADE ON A MICROWAVE</button><button type="button" data-play="gulp" style="--c:var(--cyan)">NO COOKIES (HE ATE THEM)</button></div>
+</footer>
+
+</div>
+
+<div class="marquee rev" aria-hidden="true"><span>★ YOU SCROLLED ALL THE WAY DOWN ★ GO COPY DOOFUS ★ OR TOUCH GRASS ★ BOTH ARE VALID ★ FAAAHHHHHHH ★</span></div>
+
+<button class="soundtoggle" type="button" id="soundToggle" aria-pressed="true">🔊 SOUNDS: ON</button>
+
+<aside class="clippy" id="clippy" aria-label="DOOFUS assistant">
+  <div class="bar"><span>DOOFUS Assistant 98</span><button type="button" id="clippyX" aria-label="Close">×</button></div>
+  <div class="clippy-body">
+    <svg viewBox="0 30 240 240" aria-hidden="true"><use href="#dfface"/></svg>
+    <div><p id="clippyMsg">It looks like you're trying to be productive. Want me to stop that?</p>
+      <div class="clippy-acts"><button type="button" id="clippyYes">YES PLS</button><button type="button" id="clippyNo">no (wrong)</button></div></div>
+  </div>
+</aside>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SOUNDS = {{SOUNDS}};
+  const GIFS = {{GIFS}};
+  const TPL = {{TPL}};
+  const byId = Object.fromEntries(SOUNDS.map((s) => [s.id, s]));
+
+  /* ---------- REAL SOUNDS (local mp3s, original link as backup) ---------- */
+  let soundOn = true;
+  try { soundOn = localStorage.getItem('doofus-sound') !== 'off'; } catch (_) {}
+  let current = null, unlocked = false;
+  const dead = new Set();
+  function playSound(id, el, vol = 1) {
+    if (el) { el.classList.add('on'); setTimeout(() => el.classList.remove('on'), 250); }
+    if (id === 'fahh' || id === 'tactical-nuke' || id === 'fbi-open-up') { shake(); if (id !== 'fbi-open-up') boom(); }
+    if (!soundOn || !byId[id]) return;
+    unlocked = true;
+    if (current && !current.paused) { try { current.pause(); } catch (_) {} }
+    const urls = ['sounds/' + id + '.mp3', byId[id].src].filter((u) => !dead.has(u));
+    (function attempt(i) {
+      if (i >= urls.length) return;
+      let done = false; const a = new Audio(urls[i]); a.volume = vol; current = a;
+      const next = () => { if (done) return; done = true; dead.add(urls[i]); attempt(i + 1); };
+      a.addEventListener('error', next, { once: true });
+      const p = a.play(); if (p && p.catch) p.catch((e) => { if (!e || e.name !== 'NotAllowedError') next(); });
+    })(0);
+  }
+  function shake() { if (reduce) return; document.body.classList.remove('shake'); void document.body.offsetWidth; document.body.classList.add('shake'); setTimeout(() => document.body.classList.remove('shake'), 800); }
+  function boom() {
+    if (reduce) return;
+    const d = document.createElement('div'); d.className = 'boom'; d.innerHTML = '<img alt="" src="' + GIFS.explosion + '">';
+    document.body.appendChild(d); setTimeout(() => d.remove(), 1100);
+  }
+  function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 1500); }
+
+  // anything with data-play makes noise
+  document.addEventListener('click', (e) => { const el = e.target.closest('[data-play]'); if (el) playSound(el.dataset.play, el.matches('.btn, .snd, .does button') ? el : null); });
+  // hovering the big stuff makes noise too (after the first click, because browsers)
+  let lastHover = 0;
+  $$('.does button, .btn, nav.shame a').forEach((el) => el.addEventListener('mouseenter', () => {
+    if (!unlocked || !matchMedia('(hover: hover)').matches) return;
+    const now = performance.now(); if (now - lastHover < 700) return; lastHover = now;
+    playSound(['android-beep', 'uwu', 'stop-the-cap', 'bruh', 'get-out-tuco', 'six-seven'][Math.floor(Math.random() * 6)], null, 0.5);
+  }));
+  const st = $('#soundToggle');
+  const paint = () => { st.setAttribute('aria-pressed', String(soundOn)); st.textContent = soundOn ? '🔊 SOUNDS: ON' : '🔇 SOUNDS: OFF'; };
+  paint();
+  st.addEventListener('click', () => { soundOn = !soundOn; paint(); try { localStorage.setItem('doofus-sound', soundOn ? 'on' : 'off'); } catch (_) {} if (soundOn) playSound('android-beep'); });
+  $('#logoBtn').addEventListener('click', () => { playSound('fahh'); toast('FAAAHHHHH'); });
+
+  /* ---------- COPY DOOFUS ---------- */
+  function copyText(txt, btn, sound) {
+    const label = btn.dataset.label;
+    const ok = () => { btn.firstChild.textContent = '✅ COPIED! NOW PASTE HIM '; playSound(sound || 'apple-pay'); toast('DOOFUS COPIED 🤪'); setTimeout(() => (btn.firstChild.textContent = label), 2200); };
+    const fail = () => { const pre = $('#soulText'); const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.firstChild.textContent = '⌨️ PRESS CTRL+C '; pre.scrollIntoView({ block: 'center' }); };
+    try { navigator.clipboard.writeText(txt).then(ok, fail); } catch (_) { fail(); }
+  }
+  $('#copyTop').addEventListener('click', (e) => copyText($('#soulText').textContent, e.currentTarget));
+  $('#copySoul').addEventListener('click', (e) => copyText($('#soulText').textContent, e.currentTarget));
+  $('#copyLite').addEventListener('click', (e) => copyText($('#liteText').textContent, e.currentTarget, 'uwu'));
+  $$('details').forEach((d, i) => d.addEventListener('toggle', () => { if (d.open) playSound(['lore', 'bruh', 'kahoot', 'emotional', 'we-do-not-care', 'rick-roll'][i % 6]); }));
+
+  /* ---------- ROASTS ---------- */
+  const DECK = {
+    1: ['"{x}"? that\'s kinda cute. like a toddler in a business suit. [uwu]', '{x} is giving "i\'ll start on monday" and it\'s been monday for six months. [sad-violin]', 'aww, {x}. precious. anyway. [we-do-not-care]', '{x} is the human version of a loading bar stuck at 99%. [bruh]', 'i respect {x} the way i respect a pigeon walking into a walmart. bold. confusing. [goofy-ahh]'],
+    2: ['"{x}" is not a workflow, it\'s a hostage situation. [fbi-open-up]', '{x} is so mid it should come with a participation trophy. [sad-violin]', 'scientists studied {x} for years and concluded: skill issue. [vine-boom]', '{x} has the same energy as replying "k" to a paragraph. [are-you-serious]', '{x}? NPC behavior. you\'re one side quest from saying "nice weather today." [bruh]', 'not you thinking {x} was the move. it was the opposite of a move. [fahh]', 'ratio + L + {x} + touch grass. [clash-royale]'],
+    3: ['{x} is why your group chat has a second group chat without you. [emotional]', 'i\'ve seen better decisions from a roomba stuck under a couch. {x}?? [fahh]', 'TACTICAL ROAST INCOMING: {x} is why your mom says she\'s "proud of you" with a pause in the middle. [tactical-nuke]', 'stop the cap. nobody ever thought {x} was a good idea. not even you. especially you. [stop-the-cap]', '{x} is so bad even your spotify wrapped would pretend not to know you. [vine-boom]', 'the audacity of {x}. the confidence of a man yelling at a self-checkout. [fahh]'],
+  };
+  const STAMPS = { 1: ['LIGHTLY TOASTED', 'MILD L', 'PAT ON HEAD'], 2: ['COOKED', 'WELL DONE', 'L + RATIO'], 3: ['EMOTIONAL DAMAGE', 'NO SURVIVORS', 'CALL 911'] };
+  const RGIFS = [['roasted', 'you, right now'], ['damage', 'emotional damage'], ['laugh', 'the group chat'], ['facepalm', 'your mom reading this'], ['shocked', 'everyone watching'], ['bruh', 'bruh'], ['skull_emoji', 'you are dead'], ['clown', 'you, apparently'], ['mock', 'dOoFuS iS mEaN']];
+  let spice = '2', last = -1;
+  $$('[data-spice]').forEach((b) => b.addEventListener('click', () => { spice = b.dataset.spice; $$('[data-spice]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); playSound(['', 'uwu', 'stop-the-cap', 'tactical-nuke'][+spice]); }));
+  function doRoast() {
+    const x = ($('#roastIn').value.trim() || 'you, for leaving this empty').slice(0, 80);
+    const deck = DECK[spice]; let i; do { i = Math.floor(Math.random() * deck.length); } while (i === last && deck.length > 1); last = i;
+    const line = deck[i].replace(/\{x\}/g, x); const tag = (line.match(/\[([a-z0-9-]+)\]/) || [])[1] || 'bruh';
+    $('#roastText').textContent = line.replace(/\s*\[[a-z0-9-]+\]/, '') + ' 🔊 [' + (byId[tag] ? byId[tag].label : tag) + ']';
+    const st = STAMPS[spice]; $('#stamp').textContent = st[Math.floor(Math.random() * st.length)];
+    const [g, cap] = RGIFS[Math.floor(Math.random() * RGIFS.length)];
+    $('#roastGif').src = GIFS[g]; $('#roastCap').textContent = cap;
+    playSound(tag);
+  }
+  $('#roastForm').addEventListener('submit', (e) => { e.preventDefault(); doRoast(); });
+  $$('[data-ex]').forEach((b) => b.addEventListener('click', () => { $('#roastIn').value = b.dataset.ex; doRoast(); }));
+
+  /* ---------- SOUNDBOARD + TOP 8 ---------- */
+  const COLORS = ['#b6ff00', '#ff6a00', '#ff2bd6', '#39e6ff', '#fff200', '#c7a3ff', '#ffb3b3', '#9fffc9'];
+  const order = [byId.fahh, ...SOUNDS.filter((s) => s.id !== 'fahh')];
+  order.forEach((s, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'snd' + (i === 0 ? ' big' : '');
+    b.style.setProperty('--c', COLORS[i % COLORS.length]);
+    b.innerHTML = '<span class="rank">#' + (SOUNDS.indexOf(s) + 1) + '</span>'; b.append(s.label);
+    b.addEventListener('click', () => playSound(s.id, b));
+    (i < 13 ? $('#board') : $('#boardMore')).appendChild(b);
+  });
+  $('#moreBtn').addEventListener('click', (e) => { const m = $('#boardMore'); m.hidden = !m.hidden; e.currentTarget.setAttribute('aria-expanded', String(!m.hidden)); e.currentTarget.textContent = m.hidden ? 'SHOW ALL 39 ▼' : 'OK THAT\'S ENOUGH ▲'; playSound(m.hidden ? 'bruh' : 'turn-up-volume'); });
+  ['fahh', 'vine-boom', 'six-seven', 'tactical-nuke', 'stop-the-cap', 'rizz', 'bruh', 'clash-royale'].forEach((id, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.style.setProperty('--c', COLORS[i]); b.textContent = byId[id].label;
+    b.addEventListener('click', () => playSound(id, b)); $('#top8').appendChild(b);
+  });
+
+  /* ---------- MEME MACHINE ---------- */
+  const PRESETS = { 'Drake Hotline Bling': ['reading the docs', 'asking DOOFUS'], 'Two Buttons': ['fix the bug', 'add another feature'], 'Distracted Boyfriend': ['me', 'a new side project'], 'Left Exit 12 Off Ramp': ['being productive', 'clicking every sound on this site'], 'Change My Mind': ['every AI is too serious', 'change my mind'], 'Batman Slapping Robin': ['can we make it professional', 'NO'], 'UNO Draw 25 Cards': ['admit you were wrong', 'draws 25'], 'Running Away Balloon': ['my sleep schedule', 'goodbye'], 'Waiting Skeleton': ['me waiting for the build', 'to finish'], 'One Does Not Simply': ['one does not simply', 'close 47 tabs'], 'Expanding Brain': ['using AI', 'using DOOFUS'], 'Mocking Spongebob': ['"let\'s circle back"', 'LeTs CiRcLe BaCk'] };
+  let cur = 0;
+  TPL.forEach((t, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.title = t.name; b.setAttribute('aria-label', t.name); b.setAttribute('aria-pressed', String(i === 0));
+    b.innerHTML = '<img alt="" src="' + t.file + '">'; b.addEventListener('click', () => { pick(i); playSound('taco-bell-bong'); }); $('#tpls').appendChild(b);
+  });
+  function cap() { $('#capTop').textContent = $('#t1').value; $('#capBot').textContent = $('#t2').value; }
+  function pick(i) {
+    cur = i; const t = TPL[i]; $('#memeImg').src = t.file; $('#memebox').classList.toggle('drake', t.name === 'Drake Hotline Bling');
+    $$('#tpls button').forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
+    const p = PRESETS[t.name] || ['me', 'also me']; $('#t1').value = p[0]; $('#t2').value = p[1]; cap();
+  }
+  ['t1', 't2'].forEach((id) => $('#' + id).addEventListener('input', cap));
+  $('#randMeme').addEventListener('click', () => { let i; do { i = Math.floor(Math.random() * TPL.length); } while (i === cur); pick(i); playSound('kahoot'); });
+  $('#boomMeme').addEventListener('click', () => playSound('vine-boom'));
+  pick(0);
+
+  /* ---------- SHARE ---------- */
+  const SITE = 'https://eddielobanovskiy.github.io/doofus/', REPO = 'https://github.com/eddielobanovskiy/doofus';
+  const pitch = 'I downloaded a stupid friend for my AI. His name is DOOFUS and he roasts me now 🤪 (free)';
+  $('#shareX').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(pitch) + '&url=' + encodeURIComponent(SITE);
+  $('#shareReddit').href = 'https://www.reddit.com/submit?url=' + encodeURIComponent(SITE) + '&title=' + encodeURIComponent(pitch);
+  $$('a.repo').forEach((a) => (a.href = REPO));
+  $('#copyLink').addEventListener('click', (e) => { const b = e.currentTarget; try { navigator.clipboard.writeText(pitch + ' ' + SITE).then(() => { b.textContent = '✅ COPIED. NOW GO.'; playSound('default-dance'); }, () => { b.textContent = SITE; }); } catch (_) { b.textContent = SITE; } });
+
+  /* ---------- JUNK ---------- */
+  let hits = 69420; setInterval(() => { hits += Math.floor(Math.random() * 3); $('#hits').textContent = String(hits).padStart(7, '0'); }, 2200);
+  const LINES = ['It looks like you\'re trying to be productive. Want me to stop that?', 'Have you copied DOOFUS yet? He\'s right there. Top of the page.', 'I see the 47 tabs. We need to talk.', 'Fun fact: this popup has no purpose. Like that meeting you have later.'];
+  let li = 0;
+  $('#clippyX').addEventListener('click', () => { $('#clippy').hidden = true; playSound('get-out-tuco'); toast('rude'); });
+  $('#clippyYes').addEventListener('click', () => { playSound('rick-roll'); $('#clippyMsg').textContent = 'Productivity disabled. You got rick rolled. You\'re welcome.'; });
+  $('#clippyNo').addEventListener('click', () => { playSound('are-you-serious'); li = (li + 1) % LINES.length; $('#clippyMsg').textContent = LINES[li]; });
+  if (!reduce && matchMedia('(pointer: fine)').matches) {
+    const bits = ['💀', '🤪', '🔥', '★', '✧']; let t = 0;
+    addEventListener('pointermove', (e) => { const n = performance.now(); if (n - t < 70) return; t = n;
+      const s = document.createElement('span'); s.className = 'spark'; s.textContent = bits[Math.floor(Math.random() * bits.length)];
+      s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px'; document.body.appendChild(s); setTimeout(() => s.remove(), 900); });
+  }
+})();
+</script>
