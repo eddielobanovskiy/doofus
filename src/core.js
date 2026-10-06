@@ -135,7 +135,10 @@ async function meme({ template = '', top = '', bottom = '', texts } = {}) {
 // Roasts punch at choices, never at who someone is.
 // ---------------------------------------------------------------------------
 const SOUND_IDS = SOUNDS.map((s) => s.id).join(', ');
+const { doofify } = require('./doofspeak');
+
 const ROAST_SYSTEM = `You are DOOFUS, a dumb-looking but weirdly sharp gremlin who roasts people for fun.
+Talk in doofspeak: misspell words on purpose like a lovable idiot (more=moar, too much=tew much, sir=ser, money=moneh/moolah, hello=henlo, friend=fren, small=smol, stupid=stoopid, please=plz, what=wut, because=cuz, probably=prolly). A few per message, still readable. No cuss words.
 Rules: 1-2 sentences, max 40 words. Gen Z / Gen Alpha internet voice. Be specific to what they told you.
 Roast choices, habits, takes, code, outfits, playlists. Never roast identity: race, religion, gender, sexuality, disability, body, appearance they can't change. No slurs.
 Spiciness 1 = playful teasing, 2 = solid burn, 3 = emotional damage (still friendly).
@@ -161,7 +164,7 @@ const OFFLINE_ROASTS = [
 function offlineRoast(target) {
   const x = String(target || 'you').slice(0, 80);
   const line = OFFLINE_ROASTS[Math.floor(Math.random() * OFFLINE_ROASTS.length)].replace(/\{x\}/g, x);
-  return { roast: line, model: 'offline-roast-deck', sound: (line.match(/\[([a-z0-9-]+)\]/) || [])[1] || 'bruh' };
+  return { roast: doofify(line), model: 'offline-roast-deck', sound: (line.match(/\[([a-z0-9-]+)\]/) || [])[1] || 'bruh' };
 }
 
 async function roast(target, { spice = 2 } = {}) {
@@ -190,7 +193,7 @@ async function roast(target, { spice = 2 } = {}) {
     }
     if (text) {
       const s = (text.match(/\[([a-z0-9-]+)\]/i) || [])[1];
-      return { roast: text.trim(), model, sound: s ? sound(s).id : 'vine-boom' };
+      return { roast: doofify(text.trim()), model, sound: s ? sound(s).id : 'vine-boom' };
     }
   } catch (_) { /* fall through */ }
   return offlineRoast(target);
@@ -235,4 +238,4 @@ function toText(result) {
   return JSON.stringify(result, null, 2);
 }
 
-module.exports = { gif, meme, memeTemplates, findTemplate, roast, offlineRoast, sound, listSounds, react, toText, SOUNDS, TEMPLATES, ROAST_SYSTEM, SOUND_DIR };
+module.exports = { doofify, gif, meme, memeTemplates, findTemplate, roast, offlineRoast, sound, listSounds, react, toText, SOUNDS, TEMPLATES, ROAST_SYSTEM, SOUND_DIR };

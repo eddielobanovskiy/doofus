@@ -1,7 +1,7 @@
 """Builds the landing page from docs/src/page.html.
 Writes docs/index.html (full page for GitHub Pages) and build/artifact.html (body-only, for previews).
 Run: python3 scripts/build-page.py"""
-import json, html, re, os
+import json, html, re, os, subprocess
 R = os.path.join(os.path.dirname(__file__), '..')
 rd = lambda p: open(os.path.join(R, p), encoding='utf-8').read()
 src = rd('docs/src/page.html')
@@ -10,7 +10,9 @@ gifs = json.loads(rd('data/gifs.json'))['gifs']
 G = {k: f'gifs/{k}.{ext}' for k, (gid, ext) in gifs.items()}
 sounds = [{'id': s['id'], 'label': s['label'], 'src': s['src']} for s in json.loads(rd('data/sounds.json'))['sounds']]
 tpl = [{'name': t['name'], 'file': 'memes/' + t['image'].split('/')[-1]} for t in json.loads(rd('data/templates.json'))['templates'][:12]]
+doof = subprocess.run(['node', '-e', "process.stdout.write(JSON.stringify(require('./src/doofspeak').WORDS))"], cwd=R, capture_output=True, text=True, check=True).stdout
 out = (src.replace('{{LOGO}}', logo)
+          .replace('{{DOOF}}', doof)
           .replace('{{SOUL}}', html.escape(rd('DOOFUS.md')))
           .replace('{{LITE}}', html.escape(rd('DOOFUS-lite.md')))
           .replace('{{SOUNDS}}', json.dumps(sounds, separators=(',', ':')))

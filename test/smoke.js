@@ -56,5 +56,11 @@ const { run, runText } = require('../src/commands');
   assert.ok(said.action && brain.toChatText(said).length > 0);
   assert.ok((await runText('meme that')).length > 0);
 
+  // Doofspeak: always on the signature words, never inside links or sound tags.
+  const { doofify } = require('../src/doofspeak');
+  assert.equal(doofify('Sir, more money is too much', { level: 2, rand: () => 0 }), 'Ser, moar moneh iz tew much');
+  assert.equal(doofify('see https://you.com/what [are-you-serious]', { level: 2, rand: () => 0 }), 'see https://you.com/what [are-you-serious]');
+  assert.equal(doofify('more', { level: 0 }), 'more');
+
   console.log('🤪 all smoke tests passed. the doofus lives.');
 })().catch((e) => { console.error(e); process.exit(1); });

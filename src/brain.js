@@ -8,6 +8,7 @@
 // Without one it uses rules. Either way you get back a plan, then perform(plan) makes the media.
 'use strict';
 const core = require('./core');
+const { doofify } = require('./doofspeak');
 
 const env = (k) => (process.env[k] || '').trim();
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
@@ -101,6 +102,7 @@ function plannerPrompt() {
   const templates = core.TEMPLATES.map((t) => `${t.name} (${t.boxes} boxes)`).join('; ');
   const sounds = core.SOUNDS.map((s) => `${s.id}=${s.vibe}`).join('; ');
   return `You are DOOFUS, a chaotic but kind meme gremlin in a group chat. Decide how to react to the latest message.
+Talk in doofspeak (on purpose misspellings: moar, tew much, ser, moneh, henlo, fren, smol, wut, cuz, prolly). No cuss words.
 Reply with ONLY a JSON object, no prose:
 {"action":"roast|gif|meme|sound","text":"short reply, max 25 words, Gen Z voice, optional","gif":"2-4 word Giphy search","template":"exact template name","texts":["caption 1","caption 2"],"sound":"sound id"}
 Rules:
@@ -150,17 +152,18 @@ async function plan(text, history = []) {
 // Turn a plan into actual stuff to post
 // ---------------------------------------------------------------------------
 async function perform(p) {
-  const out = { action: p.action, text: p.text || '', by: p.by };
+  const out = { action: p.action, text: doofify(p.text || ''), by: p.by };
   if (p.action === 'roast') {
-    if (p.text) { out.text = p.text; out.sound = core.sound(p.sound || 'emotional'); }
+    if (p.text) { out.sound = core.sound(p.sound || 'emotional'); }
     else { const r = await core.roast(p.target, { spice: p.spice || 2 }); out.text = r.roast.replace(/\s*\[[a-z0-9-]+\]\s*$/i, ''); out.sound = core.sound(r.sound); }
   } else if (p.action === 'gif') {
     const g = await core.gif(p.gif || 'reaction');
     out.gif = g.results[0] || null; out.query = g.query; out.note = g.note;
     if (p.sound) out.sound = core.sound(p.sound);
   } else if (p.action === 'meme') {
-    const m = await core.meme({ template: p.template, texts: p.texts });
-    out.image = m.image; out.template = m.template; out.captions = p.texts; out.note = m.note;
+    const texts = (p.texts || []).map((t) => doofify(t));
+    const m = await core.meme({ template: p.template, texts: texts.length ? texts : undefined });
+    out.image = m.image; out.template = m.template; out.captions = texts; out.note = m.note;
     if (p.sound) out.sound = core.sound(p.sound);
   } else {
     out.sound = core.sound(p.sound || pick(core.SOUNDS).id);

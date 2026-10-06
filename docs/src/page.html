@@ -277,7 +277,7 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .marquee span { padding-left: 0; } }
 </style>
 
-<div class="marquee" aria-hidden="true"><span>★ DOWNLOAD A FRIEND ★ HIS NAME IS DOOFUS ★ HE IS VERY STUPID ★ AND VERY SMART ★ 100% FREE ★ 0% PROFESSIONAL ★ NOW WITH FAAAHHH ★ 67 67 67 ★ BEST VIEWED AT 800×600 ★ NOW REACTS TO YOUR GROUP CHAT ★ SAY "MEME THAT" ★ 135 SOUNDS ★ DO NOT PRESS THE RED BUTTON ★</span></div>
+<div class="marquee" aria-hidden="true"><span>★ DOWNLOAD A FRIEND ★ HIS NAME IS DOOFUS ★ HE IS VERY STUPID ★ AND VERY SMART ★ 100% FREE ★ 0% PROFESSIONAL ★ NOW WITH FAAAHHH ★ 67 67 67 ★ BEST VIEWED AT 800×600 ★ NOW REACTS TO YOUR GROUP CHAT ★ SAY "MEME THAT" ★ 135 SOUNDS ★ DO NOT PRESS THE RED BUTTON ★ HENLO FREN ★ U WANT MOAR? ★ DIS IS TEW MUCH SER ★</span></div>
 
 <div class="wrap" id="top">
 
@@ -309,7 +309,7 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
 <section class="box" id="does">
   <span class="sticker" data-play="we-do-not-care">CLICK THEM!!</span>
   <h2 class="wordart">WHAT DOOFUS DOES</h2>
-  <p class="sub">Your AI, but it's your funniest friend. Click a box.</p>
+  <p class="sub">Your AI, but it's your funniest fren. He can't spell. Click a box.</p>
   <div class="does">
     <button type="button" data-play="emotional" style="--c:#ffb3b3"><img src="{{G:roasted}}" alt=""><h3>🔥 ROASTS YOU</h3><p>Say "roast me". He goes for your choices, never who you are.</p><span class="tap">CLICK = EMOTIONAL DAMAGE</span></button>
     <button type="button" data-play="vine-boom" style="--c:#b3ecff"><img src="{{G:cat}}" alt=""><h3>🎞️ SENDS GIFS</h3><p>A reaction GIF for every disaster in your life.</p><span class="tap">CLICK = VINE BOOM</span></button>
@@ -488,6 +488,7 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
   <details><summary>Is it really free?</summary><p>Yes. Forever. No signup, no premium, no catch. DOOFUS is a text file. The code is open source.</p></details>
   <details><summary>What is a "personality file"?</summary><p>Instructions that tell an AI who to be. ChatGPT, Claude, Gemini and OpenClaw all have a box for them. DOOFUS is the one that makes your AI your funniest friend.</p></details>
   <details><summary>Does he spam my group chat?</summary><p>No. He drops an emoji on messages (💀 when prod dies, 🔥 when you ship) and only talks when you say "doofus", "meme that", "gif this" or reply to him. Very rarely he jumps in on his own. You can turn that off.</p></details>
+  <details><summary>Why does he spell like that?</summary><p>He can't. He's proud of it. "moar", "tew much", "ser", "moneh", "henlo fren". Never in your code or anything you'd copy, and never cuss words. Want normal spelling? Say "doofus, spell good" (or set <code>DOOFSPEAK=0</code> for the bots).</p></details>
   <details><summary>Will he still actually help me?</summary><p>Yes. Rule #1 in his file: real answer first, jokes after. Say "doofus, serious mode" and the jokes stop.</p></details>
   <details><summary>Will he roast me too hard?</summary><p>He roasts what you did, never who you are. If you're having a real bad day, he just turns into a nice friend.</p></details>
   <details><summary>Why does this website look like this?</summary><p>Every AI website looks like a bank. This one looks like a bank got hit by a truck full of memes.</p></details>
@@ -529,6 +530,14 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
   const SOUNDS = {{SOUNDS}};
   const GIFS = {{GIFS}};
   const TPL = {{TPL}};
+  /* doofspeak: same word list the bots use (src/doofspeak.js) */
+  const DOOF = {{DOOF}}.map(([w, alts, c]) => [new RegExp('\\b' + w.replace(/ /g, '\\s+') + '\\b', 'gi'), alts, c]);
+  function doofify(t) {
+    return String(t).split(/(https?:\/\/\S+|\[[^\]]*\])/g).map((part, i) => i % 2 ? part : DOOF.reduce((p, [re, alts, c]) => p.replace(re, (m) => {
+      if (Math.random() >= c) return m; const o = alts[Math.floor(Math.random() * alts.length)];
+      return m === m.toUpperCase() && /[A-Z]/.test(m) ? o.toUpperCase() : /^[A-Z]/.test(m) ? o[0].toUpperCase() + o.slice(1) : o;
+    }), part)).join('');
+  }
   const byId = Object.fromEntries(SOUNDS.map((s) => [s.id, s]));
 
   /* ---------- REAL SOUNDS (local mp3s, original link as backup) ---------- */
@@ -632,7 +641,7 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
   function doRoast() {
     const x = ($('#roastIn').value.trim() || 'you, for leaving this empty').slice(0, 80);
     const deck = DECK[spice]; let i; do { i = Math.floor(Math.random() * deck.length); } while (i === last && deck.length > 1); last = i;
-    const line = deck[i].replace(/\{x\}/g, x); const tag = (line.match(/\[([a-z0-9-]+)\]/) || [])[1] || 'bruh';
+    const line = doofify(deck[i].replace(/\{x\}/g, x)); const tag = (line.match(/\[([a-z0-9-]+)\]/) || [])[1] || 'bruh';
     $('#roastText').textContent = line.replace(/\s*\[[a-z0-9-]+\]/, '') + ' 🔊 [' + (byId[tag] ? byId[tag].label : tag) + ']';
     const st = STAMPS[spice]; $('#stamp').textContent = st[Math.floor(Math.random() * st.length)];
     const [g, cap] = RGIFS[Math.floor(Math.random() * RGIFS.length)];
@@ -716,7 +725,7 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
   ];
   const moodOf = (t) => MOOD.find((m) => m[0].test(t || ''));
   const subjectOf = (t) => t.replace(/^\s*(hey|yo|ok)?\s*,?\s*@?doofus\s*[,:]?/i, '').replace(/\b(make|send|throw|give|drop)?\s*(me|us)?\s*(a|an|the)?\s*(meme|gif+y?|giph?y|geef(ee|y)|jif|sound|roast)\s*(that|this|it|of|for|about|me|my)?\s*[:,-]?/i, '').replace(/\b(what do (you|u) think\??|thoughts\??)/i, '').trim();
-  const OPENERS = ['my honest opinion:', 'ok hear me out', 'the council has decided:', 'i thought about it for 0.2 seconds:', 'doofus analysis complete:', 'no thoughts. only this:'];
+  const OPENERS = ['my honest opinon:', 'oki hear me out', 'teh council has decided:', 'i fink about it for 0.2 secons:', 'doofus analysis complet:', 'no thots. only dis:', 'ser. ser please. look:'];
   const TPLN = Object.fromEntries(TPL.map((t, i) => [t.name, i]));
   const mock = (x) => x.split('').map((c, i) => (i % 2 ? c.toUpperCase() : c.toLowerCase())).join('');
   function memeFor(subj) {
@@ -750,27 +759,27 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
       if (act === 'gif') {
         const g = m ? rnd(m[2]) : rnd(Object.keys(GIFS).filter((k) => k !== 'under_construction' && k !== 'explosion'));
         const s = m ? rnd(m[1]) : null;
-        add('him', head + (asked && !TRIG.gif.test(said) ? rnd(OPENERS) + ' ' : '') + (subj ? '“' + esc(subj.slice(0, 40)) + '” be like:' : 'current mood:') + '<img alt="reaction GIF" src="' + GIFS[g] + '">' + (s ? sndTag(s) : ''));
+        add('him', head + (asked && !TRIG.gif.test(said) ? rnd(OPENERS) + ' ' : '') + (subj ? '“' + esc(subj.slice(0, 40)) + '” be like:' : 'current moodz:') + '<img alt="reaction GIF" src="' + GIFS[g] + '">' + (s ? sndTag(s) : ''));
         if (s) playSound(s); else playSound('vine-boom', null, 0.6);
         return;
       }
       if (act === 'meme') {
-        const [name, a, b] = memeFor(subj); const i = TPLN[name] ?? 0;
+        let [name, a, b] = memeFor(subj); a = doofify(a); b = doofify(b); const i = TPLN[name] ?? 0;
         add('him', head + (TRIG.meme.test(said) ? 'say less.' : rnd(OPENERS)) + '<div class="mini-meme' + (name === 'Drake Hotline Bling' ? ' drake' : '') + '"><img alt="' + esc(name) + ' meme" src="' + TPL[i].file + '"><div class="cap top">' + esc(a) + '</div><div class="cap bot">' + esc(b) + '</div></div>' + sndTag('vine-boom'));
         playSound('vine-boom'); return;
       }
       if (act === 'sound') {
         const s = m ? rnd(m[1]) : anyBag();
-        add('him', head + rnd(['', 'no words. just this.', 'this is my whole answer.', 'listen.']) + ' ' + sndTag(s)); playSound(s); return;
+        add('him', head + rnd(['', 'no werds. just dis.', 'dis is my whole answer ser.', 'lisen.']) + ' ' + sndTag(s)); playSound(s); return;
       }
       const x = subj || 'you, for asking';
-      const line = rnd(DECK[rnd(['2', '2', '3'])]).replace(/\{x\}/g, x);
+      const line = doofify(rnd(DECK[rnd(['2', '2', '3'])]).replace(/\{x\}/g, x));
       const tag = (line.match(/\[([a-z0-9-]+)\]/) || [])[1] || 'bruh';
       add('him', head + (asked && act !== 'roast' ? '' : '🔥 ') + esc(line.replace(/\s*\[[a-z0-9-]+\]/, '')) + ' ' + (byId[tag] ? sndTag(tag) : ''));
       playSound(tag);
     }, 500 + Math.random() * 700);
   }
-  add('him', '<span class="who">DOOFUS 🤪</span>yo. i\'m in the chat now. say "what do you think" or "meme that". or just complain about prod. i\'ll know.');
+  add('him', '<span class="who">DOOFUS 🤪</span>henlo frens. i\'m in teh chat now. say "wut do u think" or "meme that". or just complain about prod. i\'ll know.');
   $('#talkForm').addEventListener('submit', (e) => { e.preventDefault(); const i = $('#talkIn'); doofusSays(i.value); i.value = ''; });
   $$('#chips button').forEach((b) => b.addEventListener('click', () => doofusSays(b.textContent)));
 
@@ -790,7 +799,7 @@ body.wobble .box { animation: wob .35s ease-in-out 6; }
 
   /* ---------- JUNK ---------- */
   let hits = 69420; setInterval(() => { hits += Math.floor(Math.random() * 3); $('#hits').textContent = String(hits).padStart(7, '0'); }, 2200);
-  const LINES = ['It looks like you\'re trying to be productive. Want me to stop that?', 'Have you copied DOOFUS yet? He\'s right there. Top of the page.', 'I see the 47 tabs. We need to talk.', 'Fun fact: this popup has no purpose. Like that meeting you have later.'];
+  const LINES = ['It looks like you\'re trying to be productive. Want me to stop that?', 'henlo fren. u want moar sounds? press teh red button. (dont)', 'Have you copied DOOFUS yet? He\'s right there. Top of the page.', 'I see the 47 tabs. We need to talk.', 'Fun fact: this popup has no purpose. Like that meeting you have later.'];
   let li = 0;
   $('#clippyX').addEventListener('click', () => { $('#clippy').hidden = true; playSound('get-out-tuco'); toast('rude'); });
   $('#clippyYes').addEventListener('click', () => { playSound('rick-roll'); $('#clippyMsg').textContent = 'Productivity disabled. You got rick rolled. You\'re welcome.'; });
