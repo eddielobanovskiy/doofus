@@ -1,0 +1,31 @@
+# DOOFUS Slack app. api.slack.com/apps → Create New App → From a manifest → paste this.
+# Replace YOUR-URL with where DOOFUS runs (a tunnel like cloudflared/localtunnel works).
+display_information:
+  name: DOOFUS
+  description: a stupid friend for your channel 🤪 roasts, gifs, memes, FAAAHHH
+  background_color: "#ff00cc"
+features:
+  bot_user:
+    display_name: doofus
+    always_online: true
+  slash_commands:
+    - command: /doofus
+      url: https://YOUR-URL/slack
+      description: "what do you think? / meme that / roast me / fahh"
+      usage_hint: "what do you think"
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - channels:history
+      - groups:history
+      - chat:write
+      - reactions:write
+      - commands
+settings:
+  event_subscriptions:
+    request_url: https://YOUR-URL/slack/events
+    bot_events:
+      - app_mention
+      - message.channels
+      - message.groups
