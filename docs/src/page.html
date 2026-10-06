@@ -227,10 +227,57 @@ body.shake .wrap { animation: shake .35s linear 2; }
   .burst { width: 96px; height: 96px; font-size: 15px; right: -4px; } .burst b { font-size: 22px; }
   .clippy { display: none; }
 }
+/* talk to doofus */
+.chat { border: 5px inset #888; background: #ece9d8; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: min(560px, 75vh); min-height: 380px; }
+.chat-bar { background: linear-gradient(90deg, #0a246a, #a6caf0); color: #fff; font-family: var(--pixel); font-size: 10px; padding: 7px 10px; display: flex; justify-content: space-between; gap: 8px; }
+.chat-log { overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: repeating-linear-gradient(45deg, #fff 0 12px, #f4f4ff 12px 24px); }
+.msg { max-width: min(85%, 440px); padding: 8px 12px; border: 3px solid var(--ink); font-weight: 700; overflow-wrap: anywhere; }
+.msg.you { align-self: flex-end; background: #9fd4ff; border-radius: 16px 16px 2px 16px; }
+.msg.him { align-self: flex-start; background: var(--lime); border-radius: 16px 16px 16px 2px; transform: rotate(-.6deg); }
+.msg.him .who { display: block; font-family: var(--pixel); font-size: 9px; margin-bottom: 4px; }
+.msg img { display: block; width: 100%; max-width: 280px; margin-top: 6px; border: 3px solid var(--ink); }
+.msg .snd-tag { display: inline-block; margin-top: 6px; background: var(--ink); color: var(--yellow); font-family: var(--pixel); font-size: 9px; padding: 5px 7px; border: 0; }
+.mini-meme { position: relative; max-width: 280px; margin-top: 6px; border: 3px solid var(--ink); background: var(--ink); }
+.mini-meme img { margin: 0; border: 0; }
+.mini-meme .cap { font-size: 19px; padding: 4px 6px; }
+.mini-meme.drake .cap { left: 50%; height: 50%; display: flex; align-items: center; justify-content: center; color: #000; text-shadow: none; font-size: 14px; }
+.typing { align-self: flex-start; font-family: var(--pixel); font-size: 10px; background: #fff; border: 3px dashed var(--ink); padding: 8px; }
+.chat-in { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; padding: 8px; background: #d4d0c8; border-top: 3px solid #fff; }
+.chat-in input { font: inherit; font-weight: 700; padding: 8px 10px; border: 3px inset #888; min-width: 0; }
+.chat-in button { font-family: var(--display); font-size: 22px; padding: 4px 14px; background: var(--pink); color: #fff; border: 4px outset #ff9be9; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.chips button { font-weight: 700; font-size: 15px; background: #fff; border: 3px solid var(--ink); border-radius: 14px 14px 2px 14px; padding: 5px 10px; }
+.chips button:hover { background: var(--yellow); transform: rotate(-2deg); }
+/* install picker */
+.pickers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.pickers button { text-align: left; border: 5px outset; border-color: var(--c); background: var(--c); padding: 12px; font-weight: 700; }
+.pickers button b { display: block; font-family: var(--display); font-weight: 400; font-size: 30px; line-height: 1; }
+.pickers button[aria-pressed="true"] { border-style: inset; outline: 5px dashed var(--ink); outline-offset: 2px; transform: rotate(-1deg); }
+.panel { margin-top: 16px; border: 5px dashed var(--ink); background: #fffbe0; padding: 14px; }
+.panel h3 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 0 0 8px; line-height: 1; }
+.panel ol { margin: 0; padding-left: 22px; font-weight: 700; } .panel li { margin-bottom: 10px; }
+.cmd { display: grid; grid-template-columns: minmax(0, 1fr) auto; border: 4px solid var(--ink); background: var(--ink); margin: 6px 0; }
+.cmd code { color: var(--lime); padding: 10px; font-size: 14px; overflow-x: auto; white-space: nowrap; }
+.cmd button { font-family: var(--display); font-size: 20px; background: var(--yellow); border: 0; border-left: 4px solid var(--ink); padding: 0 14px; }
+.botpick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.botpick button { font-family: var(--display); font-size: 22px; padding: 4px 14px; border: 4px outset #ccc; background: #fff; }
+.botpick button[aria-pressed="true"] { background: var(--pink); color: #fff; border-style: inset; }
+/* soundboard search */
+.sfind { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.sfind input { flex: 1 1 200px; font: inherit; font-weight: 700; padding: 8px 10px; border: 4px inset #888; min-width: 0; }
+/* do not press */
+.dnp { position: fixed; left: 12px; bottom: calc(68px + env(safe-area-inset-bottom, 0px)); z-index: 60; font-family: var(--display); font-size: 18px; line-height: 1; padding: 10px 12px; background: var(--red); color: #fff; border: 5px outset #ff8a8a; border-radius: 50%; width: 92px; height: 92px; box-shadow: 0 8px 0 #7a0000; }
+.dnp:active { transform: translateY(6px); box-shadow: 0 2px 0 #7a0000; }
+.rain { position: fixed; top: -140px; width: 110px; z-index: 80; pointer-events: none; animation: fall 2.6s linear forwards; }
+@keyframes fall { to { transform: translateY(calc(100vh + 160px)) rotate(540deg); } }
+body.flip .wrap { transform: rotate(180deg); transition: transform .8s; }
+body.wobble .box { animation: wob .35s ease-in-out 6; }
+@keyframes wob { 50% { transform: rotate(2deg) scale(1.02); } }
+@media (max-width: 640px) { .dnp { width: 74px; height: 74px; font-size: 14px; } .chat { height: 70vh; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .marquee span { padding-left: 0; } }
 </style>
 
-<div class="marquee" aria-hidden="true"><span>★ DOWNLOAD A FRIEND ★ HIS NAME IS DOOFUS ★ HE IS VERY STUPID ★ AND VERY SMART ★ 100% FREE ★ 0% PROFESSIONAL ★ NOW WITH FAAAHHH ★ 67 67 67 ★ BEST VIEWED AT 800×600 ★</span></div>
+<div class="marquee" aria-hidden="true"><span>★ DOWNLOAD A FRIEND ★ HIS NAME IS DOOFUS ★ HE IS VERY STUPID ★ AND VERY SMART ★ 100% FREE ★ 0% PROFESSIONAL ★ NOW WITH FAAAHHH ★ 67 67 67 ★ BEST VIEWED AT 800×600 ★ NOW REACTS TO YOUR GROUP CHAT ★ SAY "MEME THAT" ★ 135 SOUNDS ★ DO NOT PRESS THE RED BUTTON ★</span></div>
 
 <div class="wrap" id="top">
 
@@ -240,16 +287,17 @@ body.shake .wrap { animation: shake .35s linear 2; }
   <div class="side-gif r" aria-hidden="true"><img src="{{G:dancing_banana}}" alt=""></div>
   <button class="logo-btn" id="logoBtn" aria-label="DOOFUS logo, click for FAAAHHH">{{LOGO}}</button>
   <h1 class="wordart what-is">A STUPID FRIEND<br>FOR YOUR AI 🤪</h1>
-  <p class="what-is-sub">DOOFUS is <mark>one text file</mark>. Paste it into ChatGPT, Claude, Gemini or OpenClaw and your boring AI starts roasting you, making memes and screaming FAAAHHH. It still helps you with everything.</p>
+  <p class="what-is-sub">DOOFUS is a <mark>free personality</mark> for your AI. Paste him into ChatGPT, Claude or Gemini, or drop him in your group chat. Say <mark>"doofus, what do you think?"</mark> and he roasts you, throws a GIF, makes a meme or screams FAAAHHH. He still helps with everything.</p>
   <div class="cta">
     <button class="btn go" type="button" id="copyTop" data-label="📋 COPY DOOFUS">📋 COPY DOOFUS<small>free, then paste it in your AI</small></button>
-    <a class="btn alt" href="#how" data-play="rizz">❓ HOW??<small>3 steps, 30 seconds</small></a>
+    <a class="btn alt" href="#talk" data-play="rizz">💬 TRY HIM<small>right here, no install</small></a>
   </div>
   <div class="freebar"><span>FREE</span><span>NO SIGNUP</span><span>NO APP</span><span>NO BRAIN CELLS</span></div>
 </header>
 
 <nav class="shame" aria-label="Sections">
   <a href="#does" data-play="vine-boom">WHAT HE DOES</a>
+  <a href="#talk" data-play="discord-join">TALK TO HIM</a>
   <a href="#how" data-play="android-beep">GET HIM</a>
   <a href="#roast" data-play="tactical-nuke">GET ROASTED</a>
   <a href="#sounds" data-play="six-seven">SOUNDBOARD</a>
@@ -266,52 +314,86 @@ body.shake .wrap { animation: shake .35s linear 2; }
     <button type="button" data-play="emotional" style="--c:#ffb3b3"><img src="{{G:roasted}}" alt=""><h3>🔥 ROASTS YOU</h3><p>Say "roast me". He goes for your choices, never who you are.</p><span class="tap">CLICK = EMOTIONAL DAMAGE</span></button>
     <button type="button" data-play="vine-boom" style="--c:#b3ecff"><img src="{{G:cat}}" alt=""><h3>🎞️ SENDS GIFS</h3><p>A reaction GIF for every disaster in your life.</p><span class="tap">CLICK = VINE BOOM</span></button>
     <button type="button" data-play="clash-royale" style="--c:#e9ffb3"><img src="{{G:math}}" alt=""><h3>🖼️ MAKES MEMES</h3><p>Drake, Two Buttons, Distracted Boyfriend. The classics.</p><span class="tap">CLICK = HEHEHAW</span></button>
-    <button type="button" data-play="fahh" style="--c:#ffd9f5"><img src="{{G:dog}}" alt=""><h3>🔊 PLAYS SOUNDS</h3><p>FAAAHHH, bruh, 67, tactical nuke. 39 of them.</p><span class="tap">CLICK = FAAAHHH</span></button>
+    <button type="button" data-play="fahh" style="--c:#ffd9f5"><img src="{{G:dog}}" alt=""><h3>🔊 PLAYS SOUNDS</h3><p>FAAAHHH, bruh, 67, metal pipe. <b class="nsounds">135</b> of them.</p><span class="tap">CLICK = FAAAHHH</span></button>
   </div>
   <p class="sub" style="margin-top:14px">And when you need real help (code, emails, homework) he does that first. Jokes second. Say <code>doofus, serious mode</code> and he chills.</p>
+</section>
+
+<section class="box has-corner" id="talk">
+  <div class="corner-gif" data-play="discord-call"><img src="{{G:minion}}" alt=""><span class="via">via GIPHY</span></div>
+  <span class="sticker" data-play="huh">HE'S LIVE!!</span>
+  <h2 class="wordart">TALK TO DOOFUS</h2>
+  <p class="sub">This is what he does in your chat. Ask what he thinks and he picks something stupid on his own. Say "meme that" or "throw a geefee" and he reads the room.</p>
+  <div class="chat">
+    <div class="chat-bar"><span>💬 #general — DOOFUS is online</span><span>3 ppl typing (lie)</span></div>
+    <div class="chat-log" id="log" aria-live="polite"></div>
+    <form class="chat-in" id="talkForm">
+      <label for="talkIn" class="sr">Say something to DOOFUS</label>
+      <input id="talkIn" type="text" maxlength="120" autocomplete="off" placeholder="hey doofus, what do you think?">
+      <button type="submit">SEND</button>
+    </form>
+  </div>
+  <div class="chips" id="chips">
+    <button type="button">hey doofus, what do you think?</button>
+    <button type="button">prod is down again</button>
+    <button type="button">meme that</button>
+    <button type="button">throw a geefee</button>
+    <button type="button">roast my 6am standup</button>
+    <button type="button">we shipped it!!</button>
+    <button type="button">meme tabs vs spaces</button>
+    <button type="button">play a sound</button>
+  </div>
 </section>
 
 <section class="box has-corner" id="how">
   <div class="corner-gif" data-play="bugatti"><img src="{{G:money_rain}}" alt=""><span class="via">via GIPHY</span></div>
   <span class="sticker" data-play="six-seven" style="right:140px">EASY!!</span>
-  <h2 class="wordart">GET DOOFUS IN 3 STEPS</h2>
-  <p class="sub">No install. No account. It's literally one text file.</p>
-  <ol class="steps">
-    <li><span class="num" data-play="bruh" aria-hidden="true">1</span><div>
-      <h3>COPY HIM</h3>
-      <div class="cta" style="justify-content:flex-start;margin-top:0">
-        <button class="btn go" type="button" id="copySoul" data-label="📋 COPY DOOFUS" style="animation:none">📋 COPY DOOFUS<small>the full guy (best)</small></button>
-        <button class="btn alt" type="button" id="copyLite" data-label="📋 COPY MINI DOOFUS">📋 COPY MINI DOOFUS<small>short, for small boxes</small></button>
-      </div>
-      <pre class="soul-pre" id="soulText" tabindex="0" aria-label="The DOOFUS personality file">{{SOUL}}</pre>
-      <pre id="liteText" hidden>{{LITE}}</pre>
-    </div></li>
-    <li><span class="num" data-play="android-beep" aria-hidden="true">2</span><div>
-      <h3>PASTE HIM IN YOUR AI</h3>
-      <div class="apps">
-        <div class="app" style="--c:#c8ffd4"><b>ChatGPT</b><span>Settings → Personalization → Custom instructions → paste <u>MINI DOOFUS</u>. Or make a GPT and paste the full one.</span></div>
-        <div class="app" style="--c:#ffe0c2"><b>Claude</b><span>New Project → Project instructions → paste DOOFUS.</span></div>
-        <div class="app" style="--c:#d6e4ff"><b>Gemini</b><span>Gems → New Gem → Instructions → paste DOOFUS.</span></div>
-        <div class="app" style="--c:#ffd1f1"><b>OpenClaw / Hermes</b><span>Save him as your soul: <code>~/.openclaw/workspace/SOUL.md</code> or <code>~/.hermes/SOUL.md</code></span></div>
-      </div>
-    </div></li>
-    <li><span class="num" data-play="john-cena" aria-hidden="true">3</span><div>
-      <h3>SAY HI</h3>
-      <div class="say"><span>yo doofus roast my spotify</span><span>doofus make a meme about mondays</span><span>doofus help me write this email</span></div>
-      <p style="margin-top:12px">That's it. Congrats, you have a friend now. 🎉</p>
-    </div></li>
-  </ol>
-  <details>
-    <summary>🤓 BONUS: give him REAL powers (for nerds)</summary>
-    <div>
-      <p>With powers, DOOFUS sends actual GIFs (Giphy), finished memes (Imgflip) and real sound clips in Telegram, Slack, Discord, Claude Desktop and OpenClaw. Free.</p>
-      <pre class="code">git clone https://github.com/eddielobanovskiy/doofus
-cd doofus
-npm run assets
-TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
-      <p>Setup for every app is in the <a href="https://github.com/eddielobanovskiy/doofus" target="_blank" rel="noopener" class="repo">README on GitHub</a>.</p>
+  <h2 class="wordart">GET DOOFUS</h2>
+  <p class="sub">Free. Pick where you want him. That's the whole step.</p>
+  <div class="pickers" role="group" aria-label="Where do you want DOOFUS">
+    <button type="button" data-pick="chat" aria-pressed="true" style="--c:#c8ffd4"><b>💬 MY AI APP</b>ChatGPT, Claude, Gemini. Copy &amp; paste. 30 sec.</button>
+    <button type="button" data-pick="agent" aria-pressed="false" style="--c:#ffd1f1"><b>🦞 MY AGENT</b>OpenClaw, Hermes, Claude Code. One command.</button>
+    <button type="button" data-pick="bot" aria-pressed="false" style="--c:#d6e4ff"><b>👥 MY GROUP CHAT</b>Telegram, Slack, Discord. He reacts to everything.</button>
+  </div>
+
+  <div class="panel" data-panel="chat">
+    <h3>1. COPY HIM</h3>
+    <div class="cta" style="justify-content:flex-start;margin-top:0">
+      <button class="btn go" type="button" id="copySoul" data-label="📋 COPY DOOFUS" style="animation:none">📋 COPY DOOFUS<small>the full guy (best)</small></button>
+      <button class="btn alt" type="button" id="copyLite" data-label="📋 COPY MINI DOOFUS">📋 COPY MINI DOOFUS<small>for ChatGPT's small box</small></button>
     </div>
-  </details>
+    <h3 style="margin-top:16px">2. PASTE HIM</h3>
+    <div class="apps">
+      <div class="app" style="--c:#c8ffd4"><b>ChatGPT</b><span>Settings → Personalization → Custom instructions → paste <u>MINI DOOFUS</u>.</span></div>
+      <div class="app" style="--c:#ffe0c2"><b>Claude</b><span>New Project → Project instructions → paste DOOFUS.</span></div>
+      <div class="app" style="--c:#d6e4ff"><b>Gemini</b><span>Gems → New Gem → Instructions → paste DOOFUS.</span></div>
+    </div>
+    <details style="margin-top:12px"><summary>👀 peek at the file first</summary><pre class="soul-pre" id="soulText" tabindex="0" aria-label="The DOOFUS personality file">{{SOUL}}</pre></details>
+    <pre id="liteText" hidden>{{LITE}}</pre>
+  </div>
+
+  <div class="panel" data-panel="agent" hidden>
+    <h3>PASTE THIS IN YOUR TERMINAL</h3>
+    <div class="cmd"><code>curl -fsSL https://eddielobanovskiy.github.io/doofus/install.sh | bash</code><button type="button" data-copy>COPY</button></div>
+    <p><b>It finds OpenClaw, Hermes and Claude Code by itself</b> and makes DOOFUS their personality (SOUL.md). Your old one gets backed up.</p>
+    <p style="margin-top:12px"><b>Want real GIFs, memes and sound clips too?</b> Add <code>powers</code>:</p>
+    <div class="cmd"><code>curl -fsSL https://eddielobanovskiy.github.io/doofus/install.sh | bash -s -- powers</code><button type="button" data-copy>COPY</button></div>
+    <p style="font-size:15px">Changed your mind? Same line with <code>uninstall</code>. He'll be fine. (he won't)</p>
+  </div>
+
+  <div class="panel" data-panel="bot" hidden>
+    <div class="botpick" role="group" aria-label="Chat app">
+      <button type="button" data-bot="telegram" aria-pressed="true">TELEGRAM</button>
+      <button type="button" data-bot="slack" aria-pressed="false">SLACK</button>
+      <button type="button" data-bot="discord" aria-pressed="false">DISCORD</button>
+    </div>
+    <div class="cmd"><code id="botCmd">curl -fsSL https://eddielobanovskiy.github.io/doofus/install.sh | bash -s -- telegram</code><button type="button" data-copy>COPY</button></div>
+    <ol id="botSteps"></ol>
+    <p style="font-size:15px">Needs <a href="https://nodejs.org" target="_blank" rel="noopener">Node 18+</a>. Giphy/Imgflip keys are optional (free), it asks you. Details in the <a class="repo" href="https://github.com/eddielobanovskiy/doofus" target="_blank" rel="noopener">README</a>.</p>
+  </div>
+
+  <h3 class="wordart" style="font-size:34px;margin-top:22px">THEN JUST SAY STUFF</h3>
+  <div class="say" style="margin-top:10px"><span>doofus what do you think?</span><span>meme that</span><span>throw a geefee</span><span>roast my playlist</span><span>fahh</span><span>doofus help me write this email</span></div>
 </section>
 
 <section class="box has-corner" id="roast">
@@ -338,10 +420,11 @@ TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
 <section class="box has-corner" id="sounds">
   <div class="corner-gif" data-play="default-dance"><img src="{{G:skeleton_dancing}}" alt=""><span class="via">via GIPHY</span></div>
   <h2 class="wordart">DOOFUS'S SOUNDBOARD</h2>
-  <p class="sub">The 39 most trending meme sounds on the internet. Your AI can use these now. Your coworkers will love it.</p>
+  <p class="sub">The <b class="nsounds">135</b> most trending meme sounds on the internet. DOOFUS sends these in your chats. Your coworkers will love it.</p>
+  <div class="sfind"><label for="sfind" class="sr">Find a sound</label><input id="sfind" type="search" placeholder="🔍 find a sound (bruh, pipe, rizz...)" autocomplete="off"><button class="small-btn" type="button" id="sRand">🎲 SURPRISE ME</button></div>
   <div class="board" id="board"></div>
   <div class="board" id="boardMore" hidden></div>
-  <button class="more" type="button" id="moreBtn" aria-expanded="false">SHOW ALL 39 ▼</button>
+  <button class="more" type="button" id="moreBtn" aria-expanded="false">SHOW ALL ▼</button>
 </section>
 
 <section class="box has-corner" id="memes">
@@ -404,6 +487,7 @@ TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
   <h2 class="wordart">QUESTIONS NOBODY ASKED</h2>
   <details><summary>Is it really free?</summary><p>Yes. Forever. No signup, no premium, no catch. DOOFUS is a text file. The code is open source.</p></details>
   <details><summary>What is a "personality file"?</summary><p>Instructions that tell an AI who to be. ChatGPT, Claude, Gemini and OpenClaw all have a box for them. DOOFUS is the one that makes your AI your funniest friend.</p></details>
+  <details><summary>Does he spam my group chat?</summary><p>No. He drops an emoji on messages (💀 when prod dies, 🔥 when you ship) and only talks when you say "doofus", "meme that", "gif this" or reply to him. Very rarely he jumps in on his own. You can turn that off.</p></details>
   <details><summary>Will he still actually help me?</summary><p>Yes. Rule #1 in his file: real answer first, jokes after. Say "doofus, serious mode" and the jokes stop.</p></details>
   <details><summary>Will he roast me too hard?</summary><p>He roasts what you did, never who you are. If you're having a real bad day, he just turns into a nice friend.</p></details>
   <details><summary>Why does this website look like this?</summary><p>Every AI website looks like a bank. This one looks like a bank got hit by a truck full of memes.</p></details>
@@ -422,6 +506,8 @@ TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
 </div>
 
 <div class="marquee rev" aria-hidden="true"><span>★ YOU SCROLLED ALL THE WAY DOWN ★ GO COPY DOOFUS ★ OR TOUCH GRASS ★ BOTH ARE VALID ★ FAAAHHHHHHH ★</span></div>
+
+<button class="dnp" type="button" id="dnp">DO NOT PRESS</button>
 
 <button class="soundtoggle" type="button" id="soundToggle" aria-pressed="true">🔊 SOUNDS: ON</button>
 
@@ -475,12 +561,22 @@ TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
 
   // anything with data-play makes noise
   document.addEventListener('click', (e) => { const el = e.target.closest('[data-play]'); if (el) playSound(el.dataset.play, el.matches('.btn, .snd, .does button') ? el : null); });
+  // shuffle bag: every sound plays once before any repeats (and never twice in a row)
+  function bag(ids) {
+    let q = [], lastId = null;
+    return () => {
+      if (!q.length) { q = ids.filter((id) => byId[id]); for (let i = q.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [q[i], q[j]] = [q[j], q[i]]; } if (q[q.length - 1] === lastId && q.length > 1) q.unshift(q.pop()); }
+      return (lastId = q.pop());
+    };
+  }
+  const hoverBag = bag(['android-beep', 'uwu', 'stop-the-cap', 'bruh', 'six-seven', 'vine-boom', 'huh', 'lol', 'yippee', 'sus', 'eh-eh-eh', 'gulp', 'taco-bell-bong', 'discord-join', 'roblox-oof', 'slap', 'whip', 'yeet', 'sheesh', 'heheha', 'spongebob-hi', 'wait-what', 'bass-drop', 'anime-wow', 'side-eye', 'incorrect-buzzer', 'lego-break', 'car-horn', 'wii-sports', 'role-reveal']);
+  const anyBag = bag(SOUNDS.map((x) => x.id));
   // hovering the big stuff makes noise too (after the first click, because browsers)
   let lastHover = 0;
-  $$('.does button, .btn, nav.shame a').forEach((el) => el.addEventListener('mouseenter', () => {
+  $$('.does button, .btn, nav.shame a, .pickers button, .chips button').forEach((el) => el.addEventListener('mouseenter', () => {
     if (!unlocked || !matchMedia('(hover: hover)').matches) return;
-    const now = performance.now(); if (now - lastHover < 700) return; lastHover = now;
-    playSound(['android-beep', 'uwu', 'stop-the-cap', 'bruh', 'get-out-tuco', 'six-seven'][Math.floor(Math.random() * 6)], null, 0.5);
+    const now = performance.now(); if (now - lastHover < 600) return; lastHover = now;
+    playSound(hoverBag(), null, 0.45);
   }));
   const st = $('#soundToggle');
   const paint = () => { st.setAttribute('aria-pressed', String(soundOn)); st.textContent = soundOn ? '🔊 SOUNDS: ON' : '🔇 SOUNDS: OFF'; };
@@ -492,10 +588,33 @@ TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
   function copyText(txt, btn, sound) {
     const label = btn.dataset.label;
     const ok = () => { btn.firstChild.textContent = '✅ COPIED! NOW PASTE HIM '; playSound(sound || 'apple-pay'); toast('DOOFUS COPIED 🤪'); setTimeout(() => (btn.firstChild.textContent = label), 2200); };
-    const fail = () => { const pre = $('#soulText'); const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.firstChild.textContent = '⌨️ PRESS CTRL+C '; pre.scrollIntoView({ block: 'center' }); };
+    const fail = () => { const pre = $('#soulText'); pre.closest('details').open = true; const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.firstChild.textContent = '⌨️ PRESS CTRL+C '; pre.scrollIntoView({ block: 'center' }); };
     try { navigator.clipboard.writeText(txt).then(ok, fail); } catch (_) { fail(); }
   }
   $('#copyTop').addEventListener('click', (e) => copyText($('#soulText').textContent, e.currentTarget));
+  $$('[data-copy]').forEach((b) => b.addEventListener('click', () => {
+    const t = b.parentElement.querySelector('code').textContent;
+    const ok = () => { b.textContent = 'COPIED!'; playSound('apple-pay'); setTimeout(() => (b.textContent = 'COPY'), 1800); };
+    try { navigator.clipboard.writeText(t).then(ok, () => { getSelection().selectAllChildren(b.parentElement.querySelector('code')); b.textContent = 'CTRL+C'; }); } catch (_) { getSelection().selectAllChildren(b.parentElement.querySelector('code')); }
+  }));
+  /* ---------- INSTALL PICKER ---------- */
+  $$('[data-pick]').forEach((b) => b.addEventListener('click', () => {
+    $$('[data-pick]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    $$('[data-panel]').forEach((p) => (p.hidden = p.dataset.panel !== b.dataset.pick));
+    playSound({ chat: 'discord-join', agent: 'hog-rider', bot: 'role-reveal' }[b.dataset.pick]);
+  }));
+  const BOT = {
+    telegram: ['Message <b>@BotFather</b> in Telegram → <code>/newbot</code> → copy the token.', 'For groups: @BotFather → <code>/setprivacy</code> → Disable, so he hears the room.', 'Run the line above, paste the token. Done. No server needed.', 'Add him to your group and say "doofus what do you think".'],
+    slack: ['<b>api.slack.com/apps</b> → Create New App → From a manifest → paste <a href="slack-manifest.yml" target="_blank">this manifest</a>.', 'Install to your workspace. Copy the Signing Secret + Bot Token (xoxb-).', 'Run the line above and paste them. Give him a public URL (cloudflared / localtunnel / any server).', '<code>/invite @doofus</code> in a channel. He reacts with emoji and answers when you @ him or say "meme that".'],
+    discord: ['<b>discord.com/developers</b> → New Application → copy App ID, Public Key, Bot Token.', 'Run the line above and paste them. It registers <code>/doofus</code> for you.', 'Put your public URL in "Interactions Endpoint URL".', 'Type <code>/doofus what do you think</code>.'],
+  };
+  function pickBot(k) {
+    $$('[data-bot]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.bot === k)));
+    $('#botCmd').textContent = 'curl -fsSL https://eddielobanovskiy.github.io/doofus/install.sh | bash -s -- ' + k;
+    $('#botSteps').innerHTML = BOT[k].map((x) => '<li>' + x + '</li>').join('');
+  }
+  $$('[data-bot]').forEach((b) => b.addEventListener('click', () => { pickBot(b.dataset.bot); playSound({ telegram: 'android-beep', slack: 'discord-call', discord: 'discord-join' }[b.dataset.bot]); }));
+  pickBot('telegram');
   $('#copySoul').addEventListener('click', (e) => copyText($('#soulText').textContent, e.currentTarget));
   $('#copyLite').addEventListener('click', (e) => copyText($('#liteText').textContent, e.currentTarget, 'uwu'));
   $$('details').forEach((d, i) => d.addEventListener('toggle', () => { if (d.open) playSound(['lore', 'bruh', 'kahoot', 'emotional', 'we-do-not-care', 'rick-roll'][i % 6]); }));
@@ -530,10 +649,19 @@ TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
     const b = document.createElement('button'); b.type = 'button'; b.className = 'snd' + (i === 0 ? ' big' : '');
     b.style.setProperty('--c', COLORS[i % COLORS.length]);
     b.innerHTML = '<span class="rank">#' + (SOUNDS.indexOf(s) + 1) + '</span>'; b.append(s.label);
-    b.addEventListener('click', () => playSound(s.id, b));
+    b.dataset.id = s.id; b.addEventListener('click', () => playSound(s.id, b));
     (i < 13 ? $('#board') : $('#boardMore')).appendChild(b);
   });
-  $('#moreBtn').addEventListener('click', (e) => { const m = $('#boardMore'); m.hidden = !m.hidden; e.currentTarget.setAttribute('aria-expanded', String(!m.hidden)); e.currentTarget.textContent = m.hidden ? 'SHOW ALL 39 ▼' : 'OK THAT\'S ENOUGH ▲'; playSound(m.hidden ? 'bruh' : 'turn-up-volume'); });
+  $$('.nsounds').forEach((n) => (n.textContent = SOUNDS.length));
+  const more = $('#moreBtn'); const moreLabel = () => 'SHOW ALL ' + SOUNDS.length + ' ▼';
+  more.textContent = moreLabel();
+  more.addEventListener('click', () => { const m = $('#boardMore'); m.hidden = !m.hidden; more.setAttribute('aria-expanded', String(!m.hidden)); more.textContent = m.hidden ? moreLabel() : 'OK THAT\'S ENOUGH ▲'; playSound(m.hidden ? 'bruh' : 'turn-up-volume'); });
+  $('#sfind').addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    if (q) { $('#boardMore').hidden = false; more.hidden = true; } else { $('#boardMore').hidden = true; more.hidden = false; more.textContent = moreLabel(); }
+    $$('#board .snd, #boardMore .snd').forEach((b) => (b.hidden = !!q && !b.textContent.toLowerCase().includes(q)));
+  });
+  $('#sRand').addEventListener('click', () => { const id = anyBag(); const b = $$('.snd').find((x) => x.dataset.id === id); playSound(id, b); toast('🔊 ' + byId[id].label); });
   ['fahh', 'vine-boom', 'six-seven', 'tactical-nuke', 'stop-the-cap', 'rizz', 'bruh', 'clash-royale'].forEach((id, i) => {
     const b = document.createElement('button'); b.type = 'button'; b.style.setProperty('--c', COLORS[i]); b.textContent = byId[id].label;
     b.addEventListener('click', () => playSound(id, b)); $('#top8').appendChild(b);
@@ -564,6 +692,101 @@ TELEGRAM_BOT_TOKEN=your-token npm run telegram</pre>
   $('#shareReddit').href = 'https://www.reddit.com/submit?url=' + encodeURIComponent(SITE) + '&title=' + encodeURIComponent(pitch);
   $$('a.repo').forEach((a) => (a.href = REPO));
   $('#copyLink').addEventListener('click', (e) => { const b = e.currentTarget; try { navigator.clipboard.writeText(pitch + ' ' + SITE).then(() => { b.textContent = '✅ COPIED. NOW GO.'; playSound('default-dance'); }, () => { b.textContent = SITE; }); } catch (_) { b.textContent = SITE; } });
+
+  /* ---------- TALK TO DOOFUS (the same brain the bots use, mini version) ---------- */
+  const rnd = (a) => a[Math.floor(Math.random() * a.length)];
+  const TRIG = {
+    gif: /\b(gif+y?|giph?y|geef(ee|y)|jif)\b/i,
+    meme: /\bmeme/i,
+    roast: /\b(roast|cook|flame|destroy)\b/i,
+    sound: /\b(sound|play (a |something|it)|fahh+|vine boom|sfx)\b/i,
+  };
+  const MOOD = [
+    [/(fail|broke|error|bug|crash|oops|wrong|deleted|prod|down\b|rip\b)/i, ['fahh', 'wasted', 'roblox-oof', 'mission-failed', 'error'], ['fine', 'explosion', 'facepalm', 'skull_emoji'], '💀'],
+    [/(win|shipped|launched|passed|promoted|finally|merged|paid|we did it|let'?s go)/i, ['mission-passed', 'yippee', 'default-dance', 'bugatti', 'siu'], ['dancing_banana', 'money_rain', 'nailed', 'thumbs_up_kid'], '🔥'],
+    [/(sus|suspicious|cursed|illegal)/i, ['sus', 'fbi-open-up', 'side-eye'], ['mock', 'shocked'], '👀'],
+    [/(\bcap\b|lie|lying|trust me|i swear)/i, ['stop-the-cap', 'how-about-no'], ['mock', 'clown'], '🧢'],
+    [/(monday|meeting|standup|deadline|email|sync)/i, ['snore', 'bruh', 'two-hours-later'], ['skeleton_dancing', 'minion', 'fine'], '😴'],
+    [/(sad|cancel|rejected|dumped|lost|tired|cry)/i, ['sad-violin', 'why-you-bully-me'], ['damage', 'facepalm'], '😭'],
+    [/(wow|omg|twist|no way|wait what)/i, ['vine-boom', 'wait-what', 'oh-great-heavens'], ['shocked', 'math'], '🤯'],
+    [/(lol|lmao|haha|😂|💀)/i, ['lol', 'scooby-laugh', 'sitcom-laugh', 'heheha'], ['laugh', 'spinning_cat'], '🤣'],
+    [/(food|lunch|hungry|pizza|taco|burger)/i, ['whopper', 'raining-tacos', 'minecraft-eating'], ['dog', 'cat'], '🌮'],
+    [/(money|rich|bought|price|\$|budget)/i, ['mrbeast', 'bugatti', 'apple-pay'], ['money_rain'], '💸'],
+    [/(idea|plan|what if|genius|vs\.?|versus)/i, ['galaxy-brain', 'let-him-cook'], ['math', 'nailed'], '🧠'],
+  ];
+  const moodOf = (t) => MOOD.find((m) => m[0].test(t || ''));
+  const subjectOf = (t) => t.replace(/^\s*(hey|yo|ok)?\s*,?\s*@?doofus\s*[,:]?/i, '').replace(/\b(make|send|throw|give|drop)?\s*(me|us)?\s*(a|an|the)?\s*(meme|gif+y?|giph?y|geef(ee|y)|jif|sound|roast)\s*(that|this|it|of|for|about|me|my)?\s*[:,-]?/i, '').replace(/\b(what do (you|u) think\??|thoughts\??)/i, '').trim();
+  const OPENERS = ['my honest opinion:', 'ok hear me out', 'the council has decided:', 'i thought about it for 0.2 seconds:', 'doofus analysis complete:', 'no thoughts. only this:'];
+  const TPLN = Object.fromEntries(TPL.map((t, i) => [t.name, i]));
+  const mock = (x) => x.split('').map((c, i) => (i % 2 ? c.toUpperCase() : c.toLowerCase())).join('');
+  function memeFor(subj) {
+    const x = subj || 'this conversation';
+    const vs = x.match(/(.+?)\s+(?:vs\.?|versus|or)\s+(.+)/i);
+    if (vs) return ['Drake Hotline Bling', vs[1], vs[2]];
+    return rnd([['Two Buttons', x, 'touch grass'], ['Change My Mind', x, 'change my mind'], ['One Does Not Simply', 'one does not simply', x], ['Waiting Skeleton', 'me waiting for', x], ['Mocking Spongebob', x, mock(x)], ['Running Away Balloon', 'my sanity', x], ['Batman Slapping Robin', x, 'NO'], ['Distracted Boyfriend', 'me', x], ['Left Exit 12 Off Ramp', 'being normal', x], ['UNO Draw 25 Cards', 'stop saying ' + x, 'draws 25'], ['Expanding Brain', 'thinking', x]]);
+  }
+  const log = $('#log'); const saidBefore = [];
+  function add(cls, html) { const d = document.createElement('div'); d.className = 'msg ' + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  const esc = (x) => x.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  function sndTag(id) { return '<button type="button" class="snd-tag" data-play="' + id + '">🔊 ' + esc(byId[id].label) + '</button>'; }
+  function doofusSays(text) {
+    const said = text.trim(); if (!said) return;
+    add('you', esc(said));
+    const useful = (x) => { const t = subjectOf(x); return t && !/^(that|this|it|please|pls)$/i.test(t) ? t : ''; };
+    let subj = useful(said) || saidBefore.map(useful).filter(Boolean).pop() || '';
+    saidBefore.push(said); if (saidBefore.length > 8) saidBefore.shift();
+    const m = moodOf(subj) || moodOf(said);
+    let act = Object.keys(TRIG).find((k) => TRIG[k].test(said));
+    const asked = act || /doofus|think|opinion|thoughts|rate/i.test(said);
+    if (!act) act = asked ? rnd(['roast', 'gif', 'meme', 'sound', 'roast', 'gif']) : rnd(['react', 'react', 'gif']);
+    const typing = document.createElement('div'); typing.className = 'typing'; typing.textContent = 'doofus is typing...'; log.appendChild(typing); log.scrollTop = log.scrollHeight;
+    setTimeout(() => {
+      typing.remove();
+      const head = '<span class="who">DOOFUS 🤪</span>';
+      if (act === 'react') {
+        const s = m ? rnd(m[1]) : 'vine-boom';
+        add('him', head + (m ? m[3] : '🤨') + ' ' + sndTag(s)); playSound(s); return;
+      }
+      if (act === 'gif') {
+        const g = m ? rnd(m[2]) : rnd(Object.keys(GIFS).filter((k) => k !== 'under_construction' && k !== 'explosion'));
+        const s = m ? rnd(m[1]) : null;
+        add('him', head + (asked && !TRIG.gif.test(said) ? rnd(OPENERS) + ' ' : '') + (subj ? '“' + esc(subj.slice(0, 40)) + '” be like:' : 'current mood:') + '<img alt="reaction GIF" src="' + GIFS[g] + '">' + (s ? sndTag(s) : ''));
+        if (s) playSound(s); else playSound('vine-boom', null, 0.6);
+        return;
+      }
+      if (act === 'meme') {
+        const [name, a, b] = memeFor(subj); const i = TPLN[name] ?? 0;
+        add('him', head + (TRIG.meme.test(said) ? 'say less.' : rnd(OPENERS)) + '<div class="mini-meme' + (name === 'Drake Hotline Bling' ? ' drake' : '') + '"><img alt="' + esc(name) + ' meme" src="' + TPL[i].file + '"><div class="cap top">' + esc(a) + '</div><div class="cap bot">' + esc(b) + '</div></div>' + sndTag('vine-boom'));
+        playSound('vine-boom'); return;
+      }
+      if (act === 'sound') {
+        const s = m ? rnd(m[1]) : anyBag();
+        add('him', head + rnd(['', 'no words. just this.', 'this is my whole answer.', 'listen.']) + ' ' + sndTag(s)); playSound(s); return;
+      }
+      const x = subj || 'you, for asking';
+      const line = rnd(DECK[rnd(['2', '2', '3'])]).replace(/\{x\}/g, x);
+      const tag = (line.match(/\[([a-z0-9-]+)\]/) || [])[1] || 'bruh';
+      add('him', head + (asked && act !== 'roast' ? '' : '🔥 ') + esc(line.replace(/\s*\[[a-z0-9-]+\]/, '')) + ' ' + (byId[tag] ? sndTag(tag) : ''));
+      playSound(tag);
+    }, 500 + Math.random() * 700);
+  }
+  add('him', '<span class="who">DOOFUS 🤪</span>yo. i\'m in the chat now. say "what do you think" or "meme that". or just complain about prod. i\'ll know.');
+  $('#talkForm').addEventListener('submit', (e) => { e.preventDefault(); const i = $('#talkIn'); doofusSays(i.value); i.value = ''; });
+  $$('#chips button').forEach((b) => b.addEventListener('click', () => doofusSays(b.textContent)));
+
+  /* ---------- DO NOT PRESS ---------- */
+  let presses = 0;
+  const DNP = ['bro.', 'it said DO NOT', 'ok stop', 'you have been warned', 'FINE', 'you are the reason we have rules', 'achievement unlocked: no self control', 'he is calling your mom', 'just copy him already'];
+  $('#dnp').addEventListener('click', () => {
+    const msg = DNP[Math.min(presses, DNP.length - 1)]; presses++;
+    toast(msg); playSound(anyBag());
+    if (reduce) return;
+    const fx = presses % 4;
+    if (fx === 1) { const keys = Object.keys(GIFS).filter((k) => k !== 'under_construction'); for (let k = 0; k < 12; k++) { const im = document.createElement('img'); im.className = 'rain'; im.alt = ''; im.src = GIFS[rnd(keys)]; im.style.left = Math.random() * 92 + 'vw'; im.style.animationDelay = Math.random() * 0.9 + 's'; document.body.appendChild(im); setTimeout(() => im.remove(), 4000); } }
+    else if (fx === 2) { document.body.classList.add('wobble'); setTimeout(() => document.body.classList.remove('wobble'), 2200); }
+    else if (fx === 3) { document.body.classList.add('flip'); setTimeout(() => document.body.classList.remove('flip'), 1800); }
+    else { shake(); boom(); }
+  });
 
   /* ---------- JUNK ---------- */
   let hits = 69420; setInterval(() => { hits += Math.floor(Math.random() * 3); $('#hits').textContent = String(hits).padStart(7, '0'); }, 2200);

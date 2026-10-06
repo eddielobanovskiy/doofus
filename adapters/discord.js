@@ -16,7 +16,7 @@ async function register() {
   const r = await fetch(`https://discord.com/api/v10/applications/${DISCORD_APP_ID}/commands`, {
     method: 'PUT',
     headers: { Authorization: `Bot ${DISCORD_BOT_TOKEN}`, 'content-type': 'application/json' },
-    body: JSON.stringify([{ name: 'doofus', description: 'summon the meme doofus', options: [opt('do', 'roast <thing> | gif <words> | sound fahh | react <thing>')] }]),
+    body: JSON.stringify([{ name: 'doofus', description: 'summon the meme doofus', options: [opt('do', 'just talk: "what do you think", "meme that", roast <thing>, gif <words>, fahh')] }]),
   });
   console.log(r.ok ? '✅ /doofus registered' : `❌ ${r.status} ${await r.text()}`);
 }
@@ -41,10 +41,10 @@ http.createServer((req, res) => {
     const i = JSON.parse(body);
     const json = (o) => res.writeHead(200, { 'content-type': 'application/json' }).end(JSON.stringify(o));
     if (i.type === 1) return json({ type: 1 }); // PING
-    const input = i.data?.options?.[0]?.value || 'help';
+    const input = i.data?.options?.[0]?.value || 'what do you think?';
     // Defer, then edit the original response once the doofus is done.
     json({ type: 5 });
-    const content = (await runText(input)).slice(0, 1990);
+    const content = (await runText(input)).slice(0, 1990); // free text goes through the brain
     fetch(`https://discord.com/api/v10/webhooks/${i.application_id}/${i.token}/messages/@original`, {
       method: 'PATCH', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ content }),
     }).catch(() => {});

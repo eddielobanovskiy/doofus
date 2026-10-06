@@ -38,5 +38,23 @@ const { run, runText } = require('../src/commands');
   assert.match(await runText('sounds'), /tactical-nuke/);
   assert.match(await runText('memes'), /Drake Hotline Bling/);
 
+  // The brain: free text in, a bit out.
+  const brain = require('../src/brain');
+  assert.equal(brain.planByRules('meme that', ['the deploy failed on friday']).action, 'meme');
+  assert.equal(brain.planByRules('throw a geefee').action, 'gif');
+  assert.equal(brain.planByRules('roast him').action, 'roast');
+  assert.equal(brain.planByRules('play a sound').action, 'sound');
+  const vs = brain.planByRules('meme tabs vs spaces');
+  assert.equal(vs.template, 'Drake Hotline Bling');
+  for (let i = 0; i < 20; i++) assert.ok(['roast', 'gif', 'meme', 'sound'].includes(brain.planByRules('what do you think?').action));
+  assert.ok(brain.isForDoofus('hey doofus what do you think'));
+  assert.ok(brain.isForDoofus('we need a meme for that'));
+  assert.ok(!brain.isForDoofus('lunch at noon?'));
+  assert.equal(brain.overhear('prod is down again', { chaos: 0 }).mood, 'disaster');
+  assert.equal(brain.overhear('we shipped it!! ', { chaos: 0 }).mood, 'win');
+  const said = await brain.respond('what do you think about my pull request');
+  assert.ok(said.action && brain.toChatText(said).length > 0);
+  assert.ok((await runText('meme that')).length > 0);
+
   console.log('🤪 all smoke tests passed. the doofus lives.');
 })().catch((e) => { console.error(e); process.exit(1); });

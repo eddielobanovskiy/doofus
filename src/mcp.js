@@ -2,8 +2,14 @@
 // Works with Claude Desktop, Claude Code, Cursor, OpenClaw, Hermes Agent, and anything else that speaks MCP.
 'use strict';
 const core = require('./core');
+const brain = require('./brain');
 
 const TOOLS = [
+  {
+    name: 'vibe',
+    description: 'Just talk to DOOFUS. Give him the conversation ("what do you think", "meme that", "gif this") and he picks the bit himself: a roast, a GIF, a captioned meme or a meme sound. Use when the user asks for something funny without saying exactly what.',
+    inputSchema: { type: 'object', properties: { text: { type: 'string', description: 'what was said' }, context: { type: 'array', items: { type: 'string' }, description: 'previous few messages, oldest first' } }, required: ['text'] },
+  },
   {
     name: 'roast',
     description: 'Roast the user (or something they mention) in 1-2 sarcastic sentences. Punch at choices, never identity. Returns the roast plus a matching meme sound.',
@@ -43,6 +49,7 @@ const TOOLS = [
 
 async function callTool(name, a = {}) {
   switch (name) {
+    case 'vibe': return brain.respond(a.text || 'what do you think?', { history: a.context || [] });
     case 'roast': return core.roast(a.target, { spice: a.spice || 2 });
     case 'gif': return core.gif(a.query, { limit: a.limit || 1 });
     case 'meme': return core.meme(a);
