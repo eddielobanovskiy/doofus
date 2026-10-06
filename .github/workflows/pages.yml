@@ -24,7 +24,8 @@ jobs:
           git rm -q --ignore-unmatch hello.txt
           python3 scripts/make-logo.py
           cp DOOFUS.md DOOFUS-lite.md IDENTITY.md docs/
-          git add -A docs/logo.svg docs/DOOFUS.md docs/DOOFUS-lite.md docs/IDENTITY.md
+          mkdir -p docs/skill && cp skill/doofus/SKILL.md docs/skill/SKILL.md
+          git add -A docs/logo.svg docs/DOOFUS.md docs/DOOFUS-lite.md docs/IDENTITY.md docs/skill
           if ! git diff --cached --quiet; then
             git config user.name "doofus-bot"
             git config user.email "doofus-bot@users.noreply.github.com"
